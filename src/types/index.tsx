@@ -6,7 +6,7 @@ export interface Team {
 
 export interface Node {
     id: number;
-    team: Team;
+    team: Team | null;
     childID?: number;
     parentIDs?: [number, number];
 }
