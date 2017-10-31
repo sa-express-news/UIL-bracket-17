@@ -1,5 +1,9 @@
 import * as constants from '../constants';
 
+export interface Action {
+    type: string;
+}
+
 export interface UpdateBracketIndex {
     type: constants.UPDATE_BRACKET_INDEX;
     index: number;
