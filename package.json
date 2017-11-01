@@ -15,13 +15,17 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
+    "pretest": "tsc",
+    "test": "mocha 'build/**/spec.js'",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.5",
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.44",
     "@types/node": "^8.0.47",
     "@types/react": "^16.0.19",
-    "@types/react-dom": "^16.0.2"
+    "@types/react-dom": "^16.0.2",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
   }
 }
