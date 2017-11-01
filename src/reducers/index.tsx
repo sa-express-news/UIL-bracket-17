@@ -13,7 +13,7 @@ const initialState: StoreState = {
 };
 
 
-export const bracketIndex = (state: number, action: UpdateBracketIndex): number => {
+export const bracketIndex = (state: number = 0, action: UpdateBracketIndex): number => {
     return action.index;
 }
 
@@ -42,8 +42,7 @@ export const nodeUpdate = (state: Bracket, action: UpdateNode): Bracket => {
     }
 }
 
-export const bracketApp = (state: StoreState, action: Action): StoreState => {
-    if (!state) return initialState;
+export const bracketApp = (state: StoreState = initialState, action: Action): StoreState => {
     switch (action.type) {
         case constants.UPDATE_BRACKET_INDEX:
             return Object.assign({}, state, {
