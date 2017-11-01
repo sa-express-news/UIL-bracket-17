@@ -1,4 +1,4 @@
-import { isEqual, cloneDeep } from 'lodash';
+import { isEqual, cloneDeep, update } from 'lodash';
 
 import { Bracket, Game, Node, Team } from '../../types';
 
@@ -104,15 +104,42 @@ export const isTeamUpdateLegal = (bracket: Bracket, id: number, team: Team): boo
     return accessibleAncestorNodes.find(doesTeamMatch) !== undefined;
 }
 
+// Note: This function assumes the update is legal.
+// Use the isTeamUpdateLegal function before calling it.
+
 export const updateTeamAtNode = (bracket: Bracket, id: number, team: Team | null): Bracket => {
     if (nodeAtIDDoesNotExist(bracket, id)) throwNonExistentIDError();
 
-    let newBracket = cloneDeep(bracket);
+    // If the champion is being updated, this is pretty straightforward:
 
-    let nodes = getAllNodesInBracket(newBracket);
-    nodes[id - 1].team = team;
+    if (bracket.champion.id === id) {
+        const newChampion = Object.assign({}, bracket.champion, { team: team });
+        return Object.freeze(Object.assign({}, bracket, { champion: newChampion }));
+    }
 
-    return Object.freeze(newBracket);
+    // Otherwise, we need to find the game containing the node we want to update:
+
+    const gameContainsMatchingNode = (game: Game): boolean => {
+        return game.nodes.find(node => node.id === id) !== undefined;
+    }
+
+    const indexOfGameContainingNode = bracket.games.findIndex(gameContainsMatchingNode);
+
+    // Then we create a function that, given that game, will return a copy of the game with the proper updated node:
+
+    const updateGame = (game: Game): Game => {
+        const indexOfNode = game.nodes.findIndex(node => node.id === id);
+        const gameCopy = cloneDeep(game);
+        gameCopy.nodes[indexOfNode] = Object.assign({}, game.nodes[indexOfNode], { team: team });
+        return gameCopy;
+    }
+
+    //Then we use lodash to target the game we want and update its node:
+
+    const newGames = update(cloneDeep(bracket.games), `${indexOfGameContainingNode}`, updateGame);
+
+    return Object.assign({}, bracket, { games: newGames });
+
 }
 
 export const updateTeamAbove = (bracket: Bracket, id: number, team: Team): Bracket => {
