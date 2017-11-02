@@ -19,7 +19,8 @@ export const bracketIndex = (state: number = 0, action: UpdateBracketIndex): num
 
 export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateNode): Bracket => {
     if (state.champion.id === action.id) {
-        return Object.assign({}, state, { champion: action.node });
+        const newNode = Object.assign({}, state.champion, { team: action.team });
+        return Object.assign({}, state, { champion: newNode });
     } else {
 
         const containsMatchingNode = (game: Game): boolean => {
@@ -34,7 +35,8 @@ export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateN
             const newGames = update(cloneDeep(state.games), `${indexOfGameContainingNode}`, function (game: Game) {
                 const indexOfNode = game.nodes.findIndex(node => node.id === action.id);
                 const gameCopy = cloneDeep(game);
-                gameCopy.nodes[indexOfNode] = action.node;
+                const newNode = Object.assign({}, game.nodes[indexOfNode], { team: action.team });
+                gameCopy.nodes[indexOfNode] = newNode;
                 return gameCopy;
             });
             return Object.assign({}, state, { games: newGames });

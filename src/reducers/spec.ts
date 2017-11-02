@@ -56,23 +56,13 @@ describe('Reducers', () => {
             const updateChampionAction: UpdateNode = {
                 type: 'UPDATE_NODE',
                 id: 3,
-                node: {
-                    id: 3,
-                    team: {
-                        name: 'Team A'
-                    },
-                    parentIDs: [1, 2]
-                }
+                team: { name: 'Team A' }
             };
 
             const updateRootAction: UpdateNode = {
                 type: 'UPDATE_NODE',
                 id: 2,
-                node: {
-                    id: 2,
-                    team: null,
-                    childID: 3
-                }
+                team: null
             };
 
             const newChampionBracket = nodeUpdate(bracket, updateChampionAction);
