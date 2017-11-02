@@ -266,6 +266,78 @@ describe('Bracket', () => {
             assert.isNull(b.getNodeAt(updatedBracket, 7).team);
         });
     });
+    describe('fullNodeUpdate', () => {
+        let bracket = bracketData;
+
+        beforeEach(() => {
+            bracket = bracketData;
+        });
+
+        //At the start of every test, the bracket looks like this:
+
+        // Team A
+        //     null
+        // Team B
+        //         null
+        // Team C
+        //     null
+        // Team D
+
+        it('returns a bracket with the target node updated', () => {
+            const newTeam = {
+                name: 'Team A'
+            };
+
+            const updated = b.fullNodeUpdate(bracket, 5, newTeam);
+
+            const newNode5 = b.getNodeAt(updated, 5);
+
+            assert.deepEqual(newNode5.team, newTeam);
+        });
+        it('nulls nodes below the target if they are no longer valid', () => {
+
+            //Fill in the second-round nodes...
+            bracket.games[2].nodes[0].team = { name: 'Team A' };
+            bracket.games[2].nodes[1].team = { name: 'Team C' };
+
+            //Fill in the champion...
+            bracket.champion.team = { name: 'Team A' };
+
+            //Now the bracket looks like this:
+
+            // Team A
+            //     Team A
+            // Team B
+            //         Team A
+            // Team C
+            //     Team C
+            // Team D
+
+            // Now, decide Team B beat Team A in the first round.
+
+            const teamUpdate = { name: 'Team B' };
+
+            const updated = b.fullNodeUpdate(bracket, 5, teamUpdate);
+
+            // Node 7 should now be null, because it's impossible for A to be in that spot.
+
+            assert.isNull(updated.champion.team);
+        });
+        it('updates nodes above the target if they were blank and should hold its team', () => {
+            // We decide Team A is going to win the whole thing...
+
+            const teamUpdate = { name: 'Team A' };
+
+            const updated = b.fullNodeUpdate(bracket, 7, teamUpdate);
+
+            // This should also fill node 5 with Team A - because it would have 
+            // had to win there to make it to the top spot
+
+            const newNode5 = b.getNodeAt(updated, 5);
+
+            assert.deepEqual(newNode5.team, teamUpdate);
+        });
+    });
     describe('isBracket', () => {
         it('returns true if the object passed matches the shape of the Bracket interface', () => {
             assert.isTrue(b.isBracket(bracket));

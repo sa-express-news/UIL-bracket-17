@@ -142,6 +142,9 @@ export const updateTeamAtNode = (bracket: Bracket, id: number, team: Team | null
 
 }
 
+// This will just return the bracket as is if no updates above the start node are required,
+// so you don't need to check before running it unless you're ultra concerned about performance.
+
 export const updateTeamAbove = (bracket: Bracket, id: number, team: Team): Bracket => {
     if (nodeAtIDDoesNotExist(bracket, id)) throwNonExistentIDError();
 
@@ -180,9 +183,17 @@ export const updateTeamAbove = (bracket: Bracket, id: number, team: Team): Brack
 export const nullTeamBelow = (bracket: Bracket, id: number, team: Team): Bracket => {
     if (nodeAtIDDoesNotExist(bracket, id)) throwNonExistentIDError();
 
-    // Get all descendents of the node at given ID
+    // Get all descendent IDs of the node at given ID
 
-    const descendents: Node[] = getAllDescendentIDs(bracket, id).map(id => getNodeAt(bracket, id));
+    const descendentIDs: number[] = getAllDescendentIDs(bracket, id);
+
+    // Just return the bracket if there are no descendents of the node - no updates required
+
+    if (!descendentIDs) return bracket;
+
+    // Otherwise, get all descendent nodes
+
+    const descendents: Node[] = descendentIDs.map(id => getNodeAt(bracket, id));
 
     // For each child, if the child has a team matching the team passed, set that team to null
 
@@ -194,6 +205,33 @@ export const nullTeamBelow = (bracket: Bracket, id: number, team: Team): Bracket
     // return a new bracket with the changes
 
     return newBracket;
+
+}
+
+export const fullNodeUpdate = (bracket: Bracket, id: number, team: Team): Bracket => {
+    // Get the current team of the node to be updated
+
+    const currentTeam = getNodeAt(bracket, id).team;
+
+    // If the current team matches the team to update it with, bail - nothing needs to changes
+
+    if (currentTeam === team) return bracket;
+
+    // Null any descendents of the target that match the old team, accepting that this will just
+    // return the bracket if no updates are necessary
+
+    let newBracket = cloneDeep(bracket);
+
+    newBracket = nullTeamBelow(newBracket, id, currentTeam);
+
+    // Update the target node's team with the new indexOfNode
+
+    newBracket = updateTeamAtNode(newBracket, id, team);
+
+    // Update the target node's ancestors to match the new team, accepting
+    // that this will just return the bracket if no updates are necessary
+
+    return updateTeamAbove(newBracket, id, team);
 
 }
 
