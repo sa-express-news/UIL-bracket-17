@@ -6,6 +6,8 @@ import { Action, UpdateBracketIndex, UpdateNode } from '../actions';
 
 import startingBrackets from './startingBrackets';
 
+import { updateTeamAtNode } from '../data-structures/bracket';
+
 const initialState: StoreState = {
     activeBracketIndex: 0,
     userBrackets: startingBrackets,
@@ -18,30 +20,7 @@ export const bracketIndex = (state: number = 0, action: UpdateBracketIndex): num
 }
 
 export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateNode): Bracket => {
-    if (state.champion.id === action.id) {
-        const newNode = Object.assign({}, state.champion, { team: action.team });
-        return Object.assign({}, state, { champion: newNode });
-    } else {
-
-        const containsMatchingNode = (game: Game): boolean => {
-            return game.nodes.find(node => node.id === action.id) !== undefined;
-        }
-
-        const indexOfGameContainingNode = state.games.findIndex(containsMatchingNode);
-
-        if (indexOfGameContainingNode < 0) {
-            return state;
-        } else {
-            const newGames = update(cloneDeep(state.games), `${indexOfGameContainingNode}`, function (game: Game) {
-                const indexOfNode = game.nodes.findIndex(node => node.id === action.id);
-                const gameCopy = cloneDeep(game);
-                const newNode = Object.assign({}, game.nodes[indexOfNode], { team: action.team });
-                gameCopy.nodes[indexOfNode] = newNode;
-                return gameCopy;
-            });
-            return Object.assign({}, state, { games: newGames });
-        }
-    }
+    return updateTeamAtNode(state, action.id, action.team);
 }
 
 export const bracketApp = (state: StoreState = initialState, action: Action): StoreState => {
