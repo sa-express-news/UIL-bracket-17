@@ -6,7 +6,7 @@ import { Action, UpdateBracketIndex, UpdateNode } from '../actions';
 
 import startingBrackets from './startingBrackets';
 
-import { updateTeamAtNode } from '../data-structures/bracket';
+import { updateTeamAtNode, updateTeamAbove, nullTeamBelow, getNodeAt } from '../data-structures/bracket';
 
 const initialState: StoreState = {
     activeBracketIndex: 0,
@@ -20,7 +20,21 @@ export const bracketIndex = (state: number = 0, action: UpdateBracketIndex): num
 }
 
 export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateNode): Bracket => {
-    return updateTeamAtNode(state, action.id, action.team);
+
+
+
+    if (getNodeAt(state, action.id).team === action.team) return state;
+
+    const currentChildTeam = cloneDeep(getNodeAt(state, action.id).team);
+
+    const nullsBelow = nullTeamBelow(state, action.id, currentChildTeam);
+
+    const updatedMainNode = updateTeamAtNode(nullsBelow, action.id, action.team);
+
+    const updatesAbove = updateTeamAbove(updatedMainNode, action.id, action.team);
+
+    return updatesAbove;
+
 }
 
 export const bracketApp = (state: StoreState = initialState, action: Action): StoreState => {
