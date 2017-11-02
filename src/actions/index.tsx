@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 
-import { Node } from '../types';
+import { Team } from '../types';
 
 export interface Action {
     type: string;
@@ -14,7 +14,7 @@ export interface UpdateBracketIndex {
 export interface UpdateNode {
     type: constants.UPDATE_NODE;
     id: number;
-    node: Node;
+    team: Team;
 }
 
 export const updateBracketIndex = (index: number): UpdateBracketIndex => {
@@ -24,10 +24,10 @@ export const updateBracketIndex = (index: number): UpdateBracketIndex => {
     };
 }
 
-export const updateNode = (id: number, node: Node): UpdateNode => {
+export const updateNode = (id: number, team: Team): UpdateNode => {
     return {
         type: constants.UPDATE_NODE,
         id: id,
-        node: node
+        team: team
     };
 }
