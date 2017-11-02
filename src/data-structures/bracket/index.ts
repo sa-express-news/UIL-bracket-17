@@ -159,7 +159,7 @@ export const updateTeamAbove = (bracket: Bracket, id: number, team: Team): Brack
 
     if (teamlessAncestors.length === 0) return bracket;
 
-    // Filter again, removing any nodes that don't have the team in their acccessible ancestor chain
+    // Filter again, removing any nodes that don't have the team in their accessible ancestor chain
 
     const ancestorsToUpdate = teamlessAncestors.filter(node => isTeamUpdateLegal(bracket, node.id, team));
 
