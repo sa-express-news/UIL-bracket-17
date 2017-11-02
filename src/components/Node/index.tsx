@@ -9,7 +9,7 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
 
     const handleClick = (event: any): void => {
         event.preventDefault();
-        const updateAction = updateNode(childID, team);
+        const updateAction = updateNode(id, team);
         if (updateNodeFunction) updateNodeFunction(updateAction);
     }
 
