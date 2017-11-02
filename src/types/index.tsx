@@ -9,12 +9,14 @@ export interface Node {
     team: Team | null;
     childID?: number;
     parentIDs?: [number, number];
+    legalityFunction?: Function;
 }
 
 export interface Game {
     location: string;
     time: string;
     nodes: [Node, Node];
+    legalityFunctionForNodes?: Function;
 }
 
 export interface Bracket {
