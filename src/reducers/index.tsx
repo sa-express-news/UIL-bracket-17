@@ -6,7 +6,7 @@ import { Action, UpdateBracketIndex, UpdateNode } from '../actions';
 
 import startingBrackets from './startingBrackets';
 
-import { updateTeamAtNode, updateTeamAbove, nullTeamBelow, getNodeAt } from '../data-structures/bracket';
+import { updateTeamAtNode, updateTeamAbove, nullTeamBelow, getNodeAt, fullNodeUpdate } from '../data-structures/bracket';
 
 const initialState: StoreState = {
     activeBracketIndex: 0,
@@ -20,20 +20,17 @@ export const bracketIndex = (state: number = 0, action: UpdateBracketIndex): num
 }
 
 export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateNode): Bracket => {
+    // If mobile, assume the target node is the child of the node clicked -- unless the champion was clicked
 
+    let targetNodeID;
 
+    if (state.champion.id === action.id) {
+        targetNodeID = action.id;
+    } else {
+        targetNodeID = getNodeAt(state, action.id).childID;
+    }
 
-    if (getNodeAt(state, action.id).team === action.team) return state;
-
-    const currentChildTeam = cloneDeep(getNodeAt(state, action.id).team);
-
-    const nullsBelow = nullTeamBelow(state, action.id, currentChildTeam);
-
-    const updatedMainNode = updateTeamAtNode(nullsBelow, action.id, action.team);
-
-    const updatesAbove = updateTeamAbove(updatedMainNode, action.id, action.team);
-
-    return updatesAbove;
+    return fullNodeUpdate(state, targetNodeID, action.team);
 
 }
 
