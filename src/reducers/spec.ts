@@ -5,6 +5,8 @@ const assert = chai.assert;
 import { bracketIndex, nodeUpdate } from './index';
 import { UpdateBracketIndex, UpdateNode } from '../actions';
 
+import dummyBracket from '../data-structures/bracket/dummy-bracket';
+
 import { Bracket } from '../types';
 
 describe('Reducers', () => {
@@ -59,12 +61,6 @@ describe('Reducers', () => {
                 team: { name: 'Team A' }
             };
 
-            const updateRootAction: UpdateNode = {
-                type: 'UPDATE_NODE',
-                id: 2,
-                team: null
-            };
-
             const newChampionBracket = nodeUpdate(bracket, updateChampionAction);
 
             const newNode = newChampionBracket.champion;
@@ -77,15 +73,33 @@ describe('Reducers', () => {
                 parentIDs: [1, 2]
             });
 
-            const newRootBracket = nodeUpdate(bracket, updateRootAction);
+        });
+        it('properly nulls nodes below the targeted update, when necessary', () => {
+            let bracket = dummyBracket;
 
-            const newRootNode = newRootBracket.games[0].nodes[1];
+            //Fill in the second-round nodes...
+            bracket.games[2].nodes[0].team = { name: 'Team A' };
+            bracket.games[2].nodes[1].team = { name: 'Team C' };
 
-            assert.deepEqual(newRootNode, {
-                id: 2,
-                team: null,
-                childID: 3
-            });
+            //Fill in the champion...
+            bracket.champion.team = { name: 'Team A' };
+
+            //Now, set up an action to change the winner of A-B in the first round to B.
+
+            const action: UpdateNode = {
+                type: 'UPDATE_NODE',
+                id: 5,
+                team: { name: 'Team B' }
+            };
+
+            // This should null the champion seat, because it's no longer possible for A to be champion.
+
+            const newBracket = nodeUpdate(bracket, action);
+            assert.isNull(newBracket.champion.team);
+
+        });
+        it('properly updates nodes above the target node, when necessary', () => {
+
         });
     });
 });
