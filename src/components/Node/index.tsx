@@ -10,7 +10,7 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
     const handleClick = (event: any): void => {
         event.preventDefault();
         const updateAction = updateNode(childID, team);
-        updateNodeFunction(updateAction);
+        if (updateNodeFunction) updateNodeFunction(updateAction);
     }
 
 
