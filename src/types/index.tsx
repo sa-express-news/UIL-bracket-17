@@ -10,6 +10,7 @@ export interface Node {
     childID?: number;
     parentIDs?: [number, number];
     legalityFunction?: Function;
+    updateNodeFunction?: Function;
 }
 
 export interface Game {
@@ -17,6 +18,7 @@ export interface Game {
     time: string;
     nodes: [Node, Node];
     legalityFunctionForNodes?: Function;
+    updateNodeFunction?: Function;
 }
 
 export interface Bracket {
@@ -24,6 +26,7 @@ export interface Bracket {
     games: Game[];
     champion: Node;
     identifier?: string | number;
+    dispatch?: Function;
 }
 
 export interface StoreState {
