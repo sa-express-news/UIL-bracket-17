@@ -27,7 +27,7 @@ const Bracket = (bracket: BracketProps) => {
         <div className="Bracket">
             <h3>{name}</h3>
             {gameComponents}
-            <Node id={champion.id} team={champion.team} parentIDs={champion.parentIDs} legalityFunction={isNodeUpdateLegal} updateNodeFunction={dispatchNodeUpdate} />
+            <Node id={champion.id} team={champion.team} parentIDs={champion.parentIDs} legalityFunction={isNodeUpdateLegal} />
         </div>
     )
 }
