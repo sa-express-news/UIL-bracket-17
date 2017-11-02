@@ -6,13 +6,13 @@ import Node from '../Node';
 
 import { UpdateNode, updateNode } from '../../actions'
 
-import * as bracketFunctions from '../../data-structures/bracket';
+import { isTeamUpdateLegal } from '../../data-structures/bracket';
 
 const Bracket = (bracket: BracketProps) => {
     const { name, games, champion, identifier, dispatch } = bracket;
 
     const isNodeUpdateLegal = (id: number, team: Team): boolean => {
-        return bracketFunctions.isTeamUpdateLegal(bracket, id, team);
+        return isTeamUpdateLegal(bracket, id, team);
     }
 
     const dispatchNodeUpdate = (action: UpdateNode): Function => {
