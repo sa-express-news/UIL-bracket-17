@@ -5,12 +5,13 @@ import { updateNode } from '../../actions';
 
 import Team from '../Team';
 
-const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFunction }: NodeProps) => {
+const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFunction, updateGameIndexFunction }: NodeProps) => {
 
     const handleClick = (event: any): void => {
         event.preventDefault();
         const updateAction = updateNode(id, team);
         if (updateNodeFunction) updateNodeFunction(updateAction);
+        updateGameIndexFunction();
     }
 
 

@@ -3,9 +3,13 @@ import { Game as GameProps } from '../../types';
 
 import Node from '../Node';
 
-const Game = ({ location, time, nodes, legalityFunctionForNodes, updateNodeFunction }: GameProps) => {
+const Game = ({ location, time, nodes, legalityFunctionForNodes, updateNodeFunction, updateGameIndexFunction }: GameProps) => {
     const nodeComponents = nodes.map((node, index) => {
-        return <Node id={node.id} team={node.team} childID={node.childID} parentIDs={node.parentIDs} legalityFunction={legalityFunctionForNodes} updateNodeFunction={updateNodeFunction} key={index} />
+        return <Node id={node.id} team={node.team} childID={node.childID}
+            parentIDs={node.parentIDs} legalityFunction={legalityFunctionForNodes}
+            updateNodeFunction={updateNodeFunction}
+            updateGameIndexFunction={updateGameIndexFunction}
+            key={index} />
     })
     return (
         <div className="Game">
