@@ -8,28 +8,37 @@ import { UpdateNode, updateNode } from '../../actions'
 
 import { isTeamUpdateLegal } from '../../data-structures/bracket';
 
-const Bracket = (bracket: BracketProps) => {
-    const { name, games, champion, identifier, dispatch } = bracket;
-
-    const isNodeUpdateLegal = (id: number, team: Team): boolean => {
-        return isTeamUpdateLegal(bracket, id, team);
-    }
-
-    const dispatchNodeUpdate = (action: UpdateNode): Function => {
-        return dispatch(action);
-    }
-
-    const gameComponents = games.map((game, index) => {
-        return <Game location={game.location} time={game.time} nodes={game.nodes} legalityFunctionForNodes={isNodeUpdateLegal} updateNodeFunction={dispatchNodeUpdate} key={index} />
-    });
-
-    return (
-        <div className="Bracket">
-            <h3>{name}</h3>
-            {gameComponents}
-            <Node id={champion.id} team={champion.team} parentIDs={champion.parentIDs} legalityFunction={isNodeUpdateLegal} />
-        </div>
-    )
+interface BracketState {
+    gameIndex: number;
 }
 
-export default Bracket;
+export default class Bracket extends React.Component<BracketProps, BracketState>{
+    constructor() {
+        super();
+        this.state = {
+            gameIndex: 0
+        };
+    }
+
+    isNodeUpdateLegal(id: number, team: Team): boolean {
+        return isTeamUpdateLegal(this.props, id, team);
+    }
+
+    dispatchNodeUpdate(action: UpdateNode): Function {
+        return this.props.dispatch(action);
+    }
+
+    render() {
+        const gameComponents = this.props.games.map((game, index) => {
+            return <Game location={game.location} time={game.time} nodes={game.nodes} legalityFunctionForNodes={this.isNodeUpdateLegal} updateNodeFunction={this.dispatchNodeUpdate} key={index} />
+        });
+
+        return (
+            <div className="Bracket">
+                <h3>{name}</h3>
+                {gameComponents}
+                <Node id={this.props.champion.id} team={this.props.champion.team} parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal} />
+            </div>
+        )
+    }
+}
