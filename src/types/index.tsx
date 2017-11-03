@@ -11,6 +11,7 @@ export interface Node {
     parentIDs?: [number, number];
     legalityFunction?: Function;
     updateNodeFunction?: Function;
+    updateGameIndexFunction?: Function;
 }
 
 export interface Game {
@@ -19,6 +20,7 @@ export interface Game {
     nodes: [Node, Node];
     legalityFunctionForNodes?: Function;
     updateNodeFunction?: Function;
+    updateGameIndexFunction?: Function;
 }
 
 export interface Bracket {
