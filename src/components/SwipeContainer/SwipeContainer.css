@@ -1,0 +1,6 @@
+/* Testing purposes only. Remove before launch. */
+
+.SwipeContainer{
+    min-height: 20vh;
+    min-width: 100%;
+}
