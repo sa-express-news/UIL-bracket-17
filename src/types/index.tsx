@@ -1,3 +1,15 @@
+export interface Button {
+    text: string;
+    clickHandler?: Function;
+}
+
+export interface SwipeContainer {
+    swipeLeftFunction: Function;
+    swipeRightFunction: Function;
+    timeThreshold: number;
+    children: any;
+}
+
 export interface Team {
     name: string;
     logo?: string;

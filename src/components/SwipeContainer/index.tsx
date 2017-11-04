@@ -1,13 +1,9 @@
 import * as React from 'react';
 
+import { SwipeContainer as SwipeContainerProps } from '../../types';
 import './SwipeContainer.css';
 
-interface SwipeContainerProps {
-    swipeLeftFunction: Function;
-    swipeRightFunction: Function;
-    timeThreshold: number;
-    children: any;
-}
+
 
 interface SwipeContainerState {
     touchStartX: number;
