@@ -56,7 +56,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
         const championNode = <Node id={this.props.champion.id} team={this.props.champion.team}
             parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal}
-            updateGameIndexFunction={(): null => null} />;
+            updateNodeFunction={this.dispatchNodeUpdate} updateGameIndexFunction={(): null => null} />;
 
         let saveButton = null;
 
