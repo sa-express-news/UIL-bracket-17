@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import './SwipeContainer.css';
+
 interface SwipeContainerProps {
     swipeLeftFunction: Function;
     swipeRightFunction: Function;
@@ -15,17 +17,17 @@ interface SwipeContainerState {
 
 export default class SwipeContainer extends React.Component<SwipeContainerProps, SwipeContainerState> {
 
-    public static defaultProps: Partial<SwipeContainerProps> = {
-        timeThreshold: 400
-    };
+    constructor() {
+        super();
+        this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
+        this.state = {
+            touchStartX: 0,
+            touchStartY: 0,
+            lastChange: new Date()
+        };
+    }
 
-    public static defaultState: Partial<SwipeContainerState> = {
-        touchStartX: 0,
-        touchStartY: 0,
-        lastChange: new Date()
-    };
-
-    handleTouchStart = (event: TouchEvent) => {
+    handleTouchStart = (event: any) => {
 
         const theTouch = event.touches[0];
 
@@ -35,10 +37,10 @@ export default class SwipeContainer extends React.Component<SwipeContainerProps,
         }));
     }
 
-    handleTouchEnd = (event: TouchEvent) => {
+    handleTouchEnd = (event: any) => {
         const theTouch = event.changedTouches[0];
 
-        if (this.state.touchStartX === null || this.state.touchStartY === null) return;
+        if (this.state.touchStartX === null || this.state.touchStartY === null) { return }
 
         if (this.state.touchStartX - theTouch.screenX >= 75) {
             this.props.swipeLeftFunction();
@@ -50,7 +52,7 @@ export default class SwipeContainer extends React.Component<SwipeContainerProps,
 
     }
 
-    shouldComponentUpdate = (nextProps: SwipeContainerProps, nextState: SwipeContainerState): boolean => {
+    shouldComponentUpdate(nextProps: SwipeContainerProps, nextState: SwipeContainerState): boolean {
         const millisecondsSinceLastChange = new Date().getTime() - this.state.lastChange.getTime();
 
         if (millisecondsSinceLastChange < this.props.timeThreshold) {
@@ -62,11 +64,10 @@ export default class SwipeContainer extends React.Component<SwipeContainerProps,
 
     render() {
         return (
-            <div className='SwipeContainer' onTouchStart={this.handleTouchStart} onTouchEnd={this.handleTouchEnd}>
+            <div className="SwipeContainer" onTouchStart={this.handleTouchStart} onTouchEnd={this.handleTouchEnd}>
                 {this.props.children}
             </div>
-        )
+        );
     }
-
 
 }
