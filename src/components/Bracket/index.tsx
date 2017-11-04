@@ -3,6 +3,7 @@ import { Bracket as BracketProps, Team } from '../../types';
 
 import Game from '../Game';
 import Node from '../Node';
+import SwipeContainer from '../SwipeContainer';
 
 import { UpdateNode, updateNode } from '../../actions'
 
@@ -28,10 +29,18 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         return this.props.dispatch(action);
     }
 
-    updateGameIndex = (): void => {
+    incrementGameIndex = (): void => {
         this.setState((prevState: BracketState, props: BracketProps) => {
             return {
-                gameIndex: prevState.gameIndex > this.props.games.length ? 0 : prevState.gameIndex + 1
+                gameIndex: prevState.gameIndex === this.props.games.length ? 0 : prevState.gameIndex + 1
+            };
+        });
+    }
+
+    decrementGameIndex = (): void => {
+        this.setState((prevState: BracketState, props: BracketProps) => {
+            return {
+                gameIndex: prevState.gameIndex === 0 ? this.props.games.length : prevState.gameIndex - 1
             };
         });
     }
@@ -41,7 +50,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             return <Game location={game.location} time={game.time} nodes={game.nodes}
                 legalityFunctionForNodes={this.isNodeUpdateLegal}
                 updateNodeFunction={this.dispatchNodeUpdate}
-                updateGameIndexFunction={this.updateGameIndex} key={index} />
+                updateGameIndexFunction={this.incrementGameIndex} key={index} />
         });
 
         let visibleComponent = null;
@@ -57,7 +66,12 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         return (
             <div className="Bracket">
                 <h3>{name}</h3>
-                {visibleComponent}
+                <SwipeContainer
+                    swipeLeftFunction={this.incrementGameIndex}
+                    swipeRightFunction={this.decrementGameIndex}
+                    timeThreshold={400}>
+                    {visibleComponent}
+                </SwipeContainer>
             </div>
         )
     }
