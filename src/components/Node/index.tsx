@@ -9,6 +9,7 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
 
     const handleClick = (event: any): void => {
         event.preventDefault();
+        if (window.innerWidth > 767) return;
         const updateAction = updateNode(id, team);
         if (updateNodeFunction) { updateNodeFunction(updateAction); }
         updateGameIndexFunction();
