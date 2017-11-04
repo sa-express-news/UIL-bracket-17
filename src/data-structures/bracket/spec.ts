@@ -267,71 +267,14 @@ describe('Bracket', () => {
             const updatedBracket = b.nullTeamBelow(bracketWithChampion, 5, { name: 'Team A' });
             assert.isNull(b.getNodeAt(updatedBracket, 7).team);
         });
-    });
-    describe('fullNodeUpdate', () => {
-        let bracket = bracketData;
+        describe('Three-round bracket', () => {
+            let bracket = canonicalBrackets[0];
 
-        beforeEach(() => {
-            bracket = bracketData;
-        });
+            beforeEach(() => {
+                bracket = canonicalBrackets[0];
+            });
 
-        //At the start of every test, the bracket looks like this:
-
-        // Team A
-        //     null
-        // Team B
-        //         null
-        // Team C
-        //     null
-        // Team D
-
-        it('returns a bracket with the target node updated', () => {
-            const newTeam = {
-                name: 'Team A'
-            };
-
-            const updated = b.fullNodeUpdate(bracket, 5, newTeam);
-
-            const newNode5 = b.getNodeAt(updated, 5);
-
-            assert.deepEqual(newNode5.team, newTeam);
-        });
-        it('updates only the target node if it is a one-level update', () => {
-            const newTeam = {
-                name: 'Team A'
-            };
-
-            const updatedBracket = b.fullNodeUpdate(bracket, 5, newTeam);
-
-            // The bracket should now look like this:
-
-            // Team A
-            //     Team A
-            // Team B
-            //         null
-            // Team C
-            //     null
-            // Team D
-
-            // Node 5 should be updated.
-
-            const newNode5 = b.getNodeAt(updatedBracket, 5);
-
-            assert.deepEqual(newNode5.team, newTeam);
-
-            // Nodes 6 and 7 should be left alone.
-
-            const newNode6 = b.getNodeAt(updatedBracket, 6);
-            const newNode7 = b.getNodeAt(updatedBracket, 7);
-
-            assert.isNull(newNode6.team);
-            assert.isNull(newNode7.team);
-
-        });
-        it('updates only the target node in one-level updates - even in multi-level brackets', () => {
-            const bracket = canonicalBrackets[0];
-
-            //At the start of this test, the bracket looks like this:
+            //At the start of every test, the bracket looks like this:
 
             // Team A
             //     null
@@ -349,70 +292,268 @@ describe('Bracket', () => {
             //     null
             // Team H
 
-            const newTeam = {
-                name: 'Team A'
-            };
+            it('nulls every level of descendents', () => {
+                const firstTeamUpdate = {
+                    name: 'Team B'
+                };
 
-            const updatedBracket = b.fullNodeUpdate(bracket, 9, newTeam);
+                const firstUpdatedBracket = b.fullNodeUpdate(bracket, 15, firstTeamUpdate);
 
-            // Node 9 should be updated.
+                // The bracket now looks like this:
 
-            const newNode9 = b.getNodeAt(updatedBracket, 9);
+                // Team A
+                //     Team A
+                // Team B
+                //         Team A
+                // Team C
+                //     null
+                // Team D
+                //              Team A
+                // Team E
+                //     null
+                // Team F
+                //         null
+                // Team G
+                //     null
+                // Team H
 
-            assert.deepEqual(newNode9.team, newTeam);
+                const secondTeamUpdate = {
+                    name: 'Team B'
+                };
 
-            // Nodes 10 - 15 should be left alone.
+                const secondUpdatedBracket = b.fullNodeUpdate(firstUpdatedBracket, 9, secondTeamUpdate);
 
-            assert.isNull(b.getNodeAt(updatedBracket, 10).team);
-            assert.isNull(b.getNodeAt(updatedBracket, 11).team);
-            assert.isNull(b.getNodeAt(updatedBracket, 12).team);
-            assert.isNull(b.getNodeAt(updatedBracket, 13).team);
-            assert.isNull(b.getNodeAt(updatedBracket, 14).team);
-            assert.isNull(b.getNodeAt(updatedBracket, 15).team);
+                // The bracket should now look like this:
 
+                // Team A
+                //     Team B
+                // Team B
+                //         null
+                // Team C
+                //     null
+                // Team D
+                //              null
+                // Team E
+                //     null
+                // Team F
+                //         null
+                // Team G
+                //     null
+                // Team H
+
+                assert.deepEqual(b.getNodeAt(secondUpdatedBracket, 9).team, secondTeamUpdate);
+                assert.isNull(b.getNodeAt(secondUpdatedBracket, 13).team);
+                assert.isNull(b.getNodeAt(secondUpdatedBracket, 15).team);
+            });
         });
-        it('nulls nodes below the target if they are no longer valid', () => {
+    });
+    describe('fullNodeUpdate', () => {
+        describe('Two-round bracket', () => {
+            let bracket = bracketData;
 
-            //Fill in the second-round nodes...
-            bracket.games[2].nodes[0].team = { name: 'Team A' };
-            bracket.games[2].nodes[1].team = { name: 'Team C' };
+            beforeEach(() => {
+                bracket = bracketData;
+            });
 
-            //Fill in the champion...
-            bracket.champion.team = { name: 'Team A' };
-
-            //Now the bracket looks like this:
+            //At the start of every test, the bracket looks like this:
 
             // Team A
-            //     Team A
+            //     null
             // Team B
-            //         Team A
+            //         null
             // Team C
-            //     Team C
+            //     null
             // Team D
 
-            // Now, decide Team B beat Team A in the first round.
+            it('returns a bracket with the target node updated', () => {
+                const newTeam = {
+                    name: 'Team A'
+                };
 
-            const teamUpdate = { name: 'Team B' };
+                const updated = b.fullNodeUpdate(bracket, 5, newTeam);
 
-            const updated = b.fullNodeUpdate(bracket, 5, teamUpdate);
+                const newNode5 = b.getNodeAt(updated, 5);
 
-            // Node 7 should now be null, because it's impossible for A to be in that spot.
+                assert.deepEqual(newNode5.team, newTeam);
+            });
+            it('updates only the target node if it is a one-level update', () => {
+                const newTeam = {
+                    name: 'Team A'
+                };
 
-            assert.isNull(updated.champion.team);
+                const updatedBracket = b.fullNodeUpdate(bracket, 5, newTeam);
+
+                // The bracket should now look like this:
+
+                // Team A
+                //     Team A
+                // Team B
+                //         null
+                // Team C
+                //     null
+                // Team D
+
+                // Node 5 should be updated.
+
+                const newNode5 = b.getNodeAt(updatedBracket, 5);
+
+                assert.deepEqual(newNode5.team, newTeam);
+
+                // Nodes 6 and 7 should be left alone.
+
+                const newNode6 = b.getNodeAt(updatedBracket, 6);
+                const newNode7 = b.getNodeAt(updatedBracket, 7);
+
+                assert.isNull(newNode6.team);
+                assert.isNull(newNode7.team);
+
+            });
+            it('nulls nodes below the target if they are no longer valid', () => {
+
+                //Fill in the second-round nodes...
+                bracket.games[2].nodes[0].team = { name: 'Team A' };
+                bracket.games[2].nodes[1].team = { name: 'Team C' };
+
+                //Fill in the champion...
+                bracket.champion.team = { name: 'Team A' };
+
+                //Now the bracket looks like this:
+
+                // Team A
+                //     Team A
+                // Team B
+                //         Team A
+                // Team C
+                //     Team C
+                // Team D
+
+                // Now, decide Team B beat Team A in the first round.
+
+                const teamUpdate = { name: 'Team B' };
+
+                const updated = b.fullNodeUpdate(bracket, 5, teamUpdate);
+
+                // Node 7 should now be null, because it's impossible for A to be in that spot.
+
+                assert.isNull(updated.champion.team);
+            });
+            it('updates nodes above the target if they were blank and should hold its team', () => {
+                // We decide Team A is going to win the whole thing...
+
+                const teamUpdate = { name: 'Team A' };
+
+                const updated = b.fullNodeUpdate(bracket, 7, teamUpdate);
+
+                // This should also fill node 5 with Team A - because it would have 
+                // had to win there to make it to the top spot
+
+                const newNode5 = b.getNodeAt(updated, 5);
+
+                assert.deepEqual(newNode5.team, teamUpdate);
+            });
         });
-        it('updates nodes above the target if they were blank and should hold its team', () => {
-            // We decide Team A is going to win the whole thing...
 
-            const teamUpdate = { name: 'Team A' };
+        describe('Three-round bracket', () => {
+            let bracket = canonicalBrackets[0];
 
-            const updated = b.fullNodeUpdate(bracket, 7, teamUpdate);
+            beforeEach(() => {
+                bracket = canonicalBrackets[0];
+            });
 
-            // This should also fill node 5 with Team A - because it would have 
-            // had to win there to make it to the top spot
+            //At the start of every test, the bracket looks like this:
 
-            const newNode5 = b.getNodeAt(updated, 5);
+            // Team A
+            //     null
+            // Team B
+            //         null
+            // Team C
+            //     null
+            // Team D
+            //              null
+            // Team E
+            //     null
+            // Team F
+            //         null
+            // Team G
+            //     null
+            // Team H
 
-            assert.deepEqual(newNode5.team, teamUpdate);
+            it('updates only the target node in one-level updates - even in multi-level brackets', () => {
+                const newTeam = {
+                    name: 'Team A'
+                };
+
+                const updatedBracket = b.fullNodeUpdate(bracket, 9, newTeam);
+
+                // Node 9 should be updated.
+
+                const newNode9 = b.getNodeAt(updatedBracket, 9);
+
+                assert.deepEqual(newNode9.team, newTeam);
+
+                // Nodes 10 - 15 should be left alone.
+
+                assert.isNull(b.getNodeAt(updatedBracket, 10).team);
+                assert.isNull(b.getNodeAt(updatedBracket, 11).team);
+                assert.isNull(b.getNodeAt(updatedBracket, 12).team);
+                assert.isNull(b.getNodeAt(updatedBracket, 13).team);
+                assert.isNull(b.getNodeAt(updatedBracket, 14).team);
+                assert.isNull(b.getNodeAt(updatedBracket, 15).team);
+
+            });
+            it('nulls every level of descendents after an update', () => {
+                const firstTeamUpdate = {
+                    name: 'Team B'
+                };
+
+                const firstUpdatedBracket = b.fullNodeUpdate(bracket, 15, firstTeamUpdate);
+
+                // The bracket now looks like this:
+
+                // Team A
+                //     Team A
+                // Team B
+                //         Team A
+                // Team C
+                //     null
+                // Team D
+                //              Team A
+                // Team E
+                //     null
+                // Team F
+                //         null
+                // Team G
+                //     null
+                // Team H
+
+                const secondTeamUpdate = {
+                    name: 'Team B'
+                };
+
+                const secondUpdatedBracket = b.fullNodeUpdate(firstUpdatedBracket, 9, secondTeamUpdate);
+
+                // The bracket should now look like this:
+
+                // Team A
+                //     Team B
+                // Team B
+                //         null
+                // Team C
+                //     null
+                // Team D
+                //              null
+                // Team E
+                //     null
+                // Team F
+                //         null
+                // Team G
+                //     null
+                // Team H
+
+                assert.deepEqual(b.getNodeAt(secondUpdatedBracket, 9).team, secondTeamUpdate);
+                assert.isNull(b.getNodeAt(secondUpdatedBracket, 13).team);
+                assert.isNull(b.getNodeAt(secondUpdatedBracket, 15).team);
+            });
         });
     });
     describe('isBracketComplete', () => {

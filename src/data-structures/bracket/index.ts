@@ -199,7 +199,7 @@ export const nullTeamBelow = (bracket: Bracket, id: number, team: Team): Bracket
 
     let newBracket = cloneDeep(bracket);
     descendents.forEach((descendent: Node) => {
-        if (isEqual(descendent.team, team)) newBracket = updateTeamAtNode(bracket, descendent.id, null);
+        if (isEqual(descendent.team, team)) newBracket = updateTeamAtNode(newBracket, descendent.id, null);
     });
 
     // return a new bracket with the changes
