@@ -20,13 +20,19 @@ export const bracketIndex = (state: number = 0, action: UpdateBracketIndex): num
 }
 
 export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateNode): Bracket => {
-    // If mobile, assume the target node is the child of the node clicked -- unless the champion was clicked
-
     let targetNodeID;
 
-    if (state.champion.id === action.id) {
+    // If we're on a desktop screen or the action is being called on the champion, we want to 
+    // run the update on that node.
+
+    if (state.champion.id === action.id || window.innerWidth > 767) {
         targetNodeID = action.id;
-    } else {
+    }
+
+    // However, due to how we update nodes on mobile - by tapping - if neither of the above are true,
+    // We want to update the node's CHILD - because we tapped its parent to choose it would win.
+
+    else {
         targetNodeID = getNodeAt(state, action.id).childID;
     }
 
