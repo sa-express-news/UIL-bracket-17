@@ -54,15 +54,9 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
                 updateGameIndexFunction={this.incrementGameIndex} key={index} />
         });
 
-        let visibleComponent = null;
-
-        if (this.state.gameIndex < gameComponents.length) {
-            visibleComponent = gameComponents[this.state.gameIndex];
-        } else {
-            visibleComponent = <Node id={this.props.champion.id} team={this.props.champion.team}
-                parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal}
-                updateGameIndexFunction={(): null => null} />
-        }
+        const championNode = <Node id={this.props.champion.id} team={this.props.champion.team}
+            parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal}
+            updateGameIndexFunction={(): null => null} />;
 
         let saveButton = null;
 
@@ -70,15 +64,36 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             saveButton = <Button text='Save bracket' clickHandler={() => console.log('saved')} />
         }
 
-        return (
-            <div className="Bracket">
-                <h3>{name}</h3>
+        let visibleBracket = null;
+
+        if (window.innerWidth < 768) {
+            let visibleComponent = null;
+
+            if (this.state.gameIndex < gameComponents.length) {
+                visibleComponent = gameComponents[this.state.gameIndex];
+            } else {
+                visibleComponent = championNode;
+            }
+
+            visibleBracket =
                 <SwipeContainer
                     swipeLeftFunction={this.incrementGameIndex}
                     swipeRightFunction={this.decrementGameIndex}
                     timeThreshold={400}>
                     {visibleComponent}
-                </SwipeContainer>
+                </SwipeContainer>;
+        } else {
+            visibleBracket =
+                <div>
+                    {gameComponents}
+                    {championNode}
+                </div>;
+        }
+
+        return (
+            <div className="Bracket">
+                <h3>{name}</h3>
+                {visibleBracket}
                 {saveButton}
             </div>
         )
