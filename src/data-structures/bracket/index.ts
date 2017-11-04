@@ -235,6 +235,12 @@ export const fullNodeUpdate = (bracket: Bracket, id: number, team: Team): Bracke
 
 }
 
+export const isBracketComplete = (bracket: Bracket): boolean => {
+    const nodes = getAllNodesInBracket(bracket);
+
+    return nodes.every(node => node.team !== null);
+}
+
 export const isBracket = (object: Object): object is Bracket => {
     if (Object.getOwnPropertyNames(object).length > 3 || Object.getOwnPropertyNames(object).length < 1) return false;
     const { name, games, champion } = <Bracket>object;

@@ -338,6 +338,21 @@ describe('Bracket', () => {
             assert.deepEqual(newNode5.team, teamUpdate);
         });
     });
+    describe('isBracketComplete', () => {
+        it('returns true if every node has a non-null team', () => {
+            let bracket = returnPartiallyFilledBracket();
+
+            // Fill in the rest of the bracket
+
+            bracket.games[2].nodes[1].team = { name: 'Team C' };
+            bracket.champion.team = { name: 'Team C' };
+
+            assert.isTrue(b.isBracketComplete(bracket));
+        });
+        it('returns false if any node in the bracket has a null team', () => {
+            assert.isFalse(b.isBracketComplete(partiallyFilledBracket));
+        });
+    });
     describe('isBracket', () => {
         it('returns true if the object passed matches the shape of the Bracket interface', () => {
             assert.isTrue(b.isBracket(bracket));
