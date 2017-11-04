@@ -3,11 +3,12 @@ import { Bracket as BracketProps, Team } from '../../types';
 
 import Game from '../Game';
 import Node from '../Node';
+import Button from '../Button';
 import SwipeContainer from '../SwipeContainer';
 
 import { UpdateNode, updateNode } from '../../actions'
 
-import { isTeamUpdateLegal } from '../../data-structures/bracket';
+import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
 interface BracketState {
     gameIndex: number;
@@ -63,6 +64,12 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
                 updateGameIndexFunction={(): null => null} />
         }
 
+        let saveButton = null;
+
+        if (isBracketComplete(this.props)) {
+            saveButton = <Button text='Save bracket' clickHandler={() => console.log('saved')} />
+        }
+
         return (
             <div className="Bracket">
                 <h3>{name}</h3>
@@ -72,6 +79,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
                     timeThreshold={400}>
                     {visibleComponent}
                 </SwipeContainer>
+                {saveButton}
             </div>
         )
     }
