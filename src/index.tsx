@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { bracketApp } from './reducers';
 
@@ -11,7 +12,9 @@ import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-const store = createStore(bracketApp, composeWithDevTools());
+const store = createStore(bracketApp, composeWithDevTools(
+  applyMiddleware(thunkMiddleware),
+));
 
 ReactDOM.render(
   <Provider store={store}>
