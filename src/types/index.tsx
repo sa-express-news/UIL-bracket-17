@@ -13,6 +13,7 @@ export interface Select {
 
 export interface Notification {
     message: string | null;
+    buttonClickHandler?: Function;
 }
 
 export interface SwipeContainer {

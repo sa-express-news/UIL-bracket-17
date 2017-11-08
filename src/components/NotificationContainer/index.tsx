@@ -1,6 +1,9 @@
+import { connect } from 'react-redux';
+
 import Notification from '../Notification';
 import { StoreState } from '../../types';
-import { connect } from 'react-redux';
+import { updateNotification } from '../../actions';
+
 
 const mapStateToProps = ({ notification }: StoreState) => {
     return {
@@ -8,4 +11,10 @@ const mapStateToProps = ({ notification }: StoreState) => {
     }
 }
 
-export default connect(mapStateToProps)(Notification as any);
+const mapDispatchToProps = (dispatch: Function) => {
+    return {
+        buttonClickHandler: () => dispatch(updateNotification(null))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notification as any);
