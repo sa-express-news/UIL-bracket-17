@@ -4,9 +4,10 @@ import { Bracket as BracketProps, Team } from '../../types';
 import Game from '../Game';
 import Node from '../Node';
 import Button from '../Button';
+import Select from '../Select';
 import SwipeContainer from '../SwipeContainer';
 
-import { UpdateNode, updateNode } from '../../actions'
+import { UpdateNode, updateNode, updateBracketID } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
@@ -59,6 +60,59 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         const championNode = <Node id={this.props.champion.id} team={this.props.champion.team}
             parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal}
             updateNodeFunction={this.dispatchNodeUpdate} updateGameIndexFunction={(): null => null} />;
+
+        const divisionOptions = [
+            {
+                value: 'div1_1a',
+                text: 'Division 1, 1A'
+            },
+            {
+                value: 'div2_1a',
+                text: 'Division 2, 1A'
+            },
+            {
+                value: 'div1_2a',
+                text: 'Division 1, 2A'
+            },
+            {
+                value: 'div2_2a',
+                text: 'Division 2, 2A'
+            },
+            {
+                value: 'div3_1a',
+                text: 'Division 3, 1A'
+            },
+            {
+                value: 'div3_2a',
+                text: 'Division 3, 2A'
+            },
+            {
+                value: 'div4_1a',
+                text: 'Division 4, 1A'
+            },
+            {
+                value: 'div4_2a',
+                text: 'Division 4, 2A'
+            },
+            {
+                value: 'div5_1a',
+                text: 'Division 5, 1A'
+            },
+            {
+                value: 'div5_2a',
+                text: 'Division 5, 2A'
+            },
+            {
+                value: 'div6_1a',
+                text: 'Division 6, 1A'
+            },
+            {
+                value: 'div6_2a',
+                text: 'Division 6, 2A'
+            }
+        ];
+
+        const selectComponent = <Select options={divisionOptions} dispatch={this.props.dispatch} />;
 
         let saveButton = null;
 
@@ -120,9 +174,12 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         }
 
         return (
-            <div className="Bracket">
-                <h3>{name}</h3>
-                {visibleBracket}
+            <div>
+                {selectComponent}
+                < div className="Bracket" >
+                    <h3>{name}</h3>
+                    {visibleBracket}
+                </div >
                 {saveButton}
             </div>
         )
