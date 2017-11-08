@@ -31,6 +31,15 @@ export interface ReceiveBracketPostResponse {
     } | null;
 }
 
+export interface AddNotification {
+    type: constants.ADD_NOTIFICATION;
+    notification: string;
+}
+
+export interface RemoveNotification {
+    type: constants.REMOVE_NOTIFICATION;
+}
+
 export const updateBracketIndex = (index: number): UpdateBracketIndex => {
     return {
         type: constants.UPDATE_BRACKET_INDEX,
@@ -58,5 +67,18 @@ export const receiveBracketPostResponse = (apiResponse: { error: string | null, 
         type: constants.RECEIVE_BRACKET_POST_RESPONSE,
         error: apiResponse.error,
         data: apiResponse.data
+    };
+}
+
+export const addNotification = (message: string): AddNotification => {
+    return {
+        type: constants.ADD_NOTIFICATION,
+        notification: message
+    };
+}
+
+export const removeNotification = (): RemoveNotification => {
+    return {
+        type: constants.REMOVE_NOTIFICATION
     };
 }
