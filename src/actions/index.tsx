@@ -11,6 +11,11 @@ export interface UpdateBracketIndex {
     index: number;
 }
 
+export interface UpdateBracketID {
+    type: constants.UPDATE_BRACKET_ID;
+    id: string;
+}
+
 export interface UpdateNode {
     type: constants.UPDATE_NODE;
     id: number;
@@ -21,6 +26,13 @@ export const updateBracketIndex = (index: number): UpdateBracketIndex => {
     return {
         type: constants.UPDATE_BRACKET_INDEX,
         index: index
+    };
+}
+
+export const updateBracketID = (id: string): UpdateBracketID => {
+    return {
+        type: constants.UPDATE_BRACKET_ID,
+        id: id
     };
 }
 
