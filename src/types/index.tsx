@@ -8,6 +8,7 @@ export interface Select {
         value: string;
         text: string;
     }[];
+    dispatch?: Function;
 }
 
 export interface SwipeContainer {
