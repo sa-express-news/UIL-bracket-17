@@ -66,20 +66,7 @@ export const receiveBracketPostResponse = (apiResponse: { error: string | null, 
     };
 }
 
-export const addNotification = (message: string): AddNotification => {
-    return {
-        type: constants.ADD_NOTIFICATION,
-        notification: message
-    };
-}
-
-export const removeNotification = (): RemoveNotification => {
-    return {
-        type: constants.REMOVE_NOTIFICATION
-    };
-}
-
-export const updateNotification = (message = null): UpdateNotification => {
+export const updateNotification = (message = null as string | null): UpdateNotification => {
     return {
         type: constants.UPDATE_NOTIFICATION,
         notification: message
