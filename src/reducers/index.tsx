@@ -2,7 +2,7 @@ import { update, set, cloneDeep } from 'lodash';
 
 import { StoreState, Bracket, Game } from '../types';
 import * as constants from '../constants';
-import { Action, UpdateBracketIndex, UpdateNode } from '../actions';
+import { Action, UpdateBracketIndex, UpdateBracketID, UpdateNode } from '../actions';
 
 import startingBrackets from './startingBrackets';
 
@@ -10,6 +10,7 @@ import { updateTeamAtNode, updateTeamAbove, nullTeamBelow, getNodeAt, fullNodeUp
 
 const initialState: StoreState = {
     activeBracketIndex: 0,
+    activeBracketID: 'div1_1a',
     userBrackets: startingBrackets,
     canonicalBrackets: startingBrackets
 };
@@ -17,6 +18,10 @@ const initialState: StoreState = {
 
 export const bracketIndex = (state: number = 0, action: UpdateBracketIndex): number => {
     return action.index;
+}
+
+export const bracketID = (state: string = 'div1_1a', action: UpdateBracketID): string => {
+    return action.id;
 }
 
 export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateNode): Bracket => {
@@ -45,6 +50,10 @@ export const bracketApp = (state: StoreState = initialState, action: Action): St
         case constants.UPDATE_BRACKET_INDEX:
             return Object.assign({}, state, {
                 activeBracketIndex: bracketIndex(state.activeBracketIndex, action as UpdateBracketIndex)
+            });
+        case constants.UPDATE_BRACKET_ID:
+            return Object.assign({}, state, {
+                activeBracketID: bracketID(state.activeBracketID, action as UpdateBracketID)
             });
         case constants.UPDATE_NODE:
             const bracketToUpdate = state.userBrackets[state.activeBracketIndex];
