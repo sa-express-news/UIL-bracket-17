@@ -12,7 +12,8 @@ const initialState: StoreState = {
     activeBracketIndex: 0,
     activeBracketID: 'div1_1a',
     userBrackets: startingBrackets,
-    canonicalBrackets: startingBrackets
+    canonicalBrackets: startingBrackets,
+    postingBracket: false
 };
 
 

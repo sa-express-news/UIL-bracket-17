@@ -56,4 +56,5 @@ export interface StoreState {
     activeBracketID: string;
     userBrackets: Bracket[];
     canonicalBrackets: Bracket[];
+    postingBracket: boolean;
 }
