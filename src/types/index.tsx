@@ -3,6 +3,13 @@ export interface Button {
     clickHandler?: Function;
 }
 
+export interface Select {
+    options: {
+        value: string;
+        text: string;
+    }[];
+}
+
 export interface SwipeContainer {
     swipeLeftFunction: Function;
     swipeRightFunction: Function;
@@ -45,6 +52,7 @@ export interface Bracket {
 
 export interface StoreState {
     activeBracketIndex: number;
+    activeBracketID: string;
     userBrackets: Bracket[];
     canonicalBrackets: Bracket[];
 }
