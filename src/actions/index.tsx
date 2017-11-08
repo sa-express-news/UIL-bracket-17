@@ -22,6 +22,15 @@ export interface UpdateNode {
     team: Team;
 }
 
+export interface ReceiveBracketPostResponse {
+    type: constants.RECEIVE_BRACKET_POST_RESPONSE;
+    error: string | null;
+    data: {
+        created: boolean;
+        id: number;
+    } | null;
+}
+
 export const updateBracketIndex = (index: number): UpdateBracketIndex => {
     return {
         type: constants.UPDATE_BRACKET_INDEX,
@@ -41,5 +50,13 @@ export const updateNode = (id: number, team: Team): UpdateNode => {
         type: constants.UPDATE_NODE,
         id: id,
         team: team
+    };
+}
+
+export const receiveBracketPostResponse = (apiResponse: { error: string | null, data: { created: boolean, id: number } | null }): ReceiveBracketPostResponse => {
+    return {
+        type: constants.RECEIVE_BRACKET_POST_RESPONSE,
+        error: apiResponse.error,
+        data: apiResponse.data
     };
 }
