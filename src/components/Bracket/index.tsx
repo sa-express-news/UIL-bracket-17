@@ -10,6 +10,8 @@ import { UpdateNode, updateNode } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
+import './Bracket.css';
+
 interface BracketState {
     gameIndex: number;
 }
@@ -83,10 +85,37 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
                     {visibleComponent}
                 </SwipeContainer>;
         } else {
+
             visibleBracket =
-                <div>
-                    {gameComponents}
-                    {championNode}
+                <div className="Bracket">
+                    <div className="round">
+                        <div className="spacer">&nbsp;</div>
+                        {gameComponents[0]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[1]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[2]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[3]}
+                        <div className="spacer">&nbsp;</div>
+                    </div>
+                    <div className="round">
+                        <div className="spacer">&nbsp;</div>
+                        {gameComponents[4]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[5]}
+                        <div className="spacer">&nbsp;</div>
+                    </div>
+                    <div className="round">
+                        <div className="spacer">&nbsp;</div>
+                        {gameComponents[6]}
+                        <div className="spacer">&nbsp;</div>
+                    </div>
+                    <div className="round">
+                        <div className="spacer">&nbsp;</div>
+                        {championNode}
+                        <div className="spacer">&nbsp;</div>
+                    </div>
                 </div>;
         }
 
