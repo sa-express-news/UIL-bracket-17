@@ -11,6 +11,10 @@ export interface Select {
     dispatch?: Function;
 }
 
+export interface Notification {
+    message: string | null;
+}
+
 export interface SwipeContainer {
     swipeLeftFunction: Function;
     swipeRightFunction: Function;
@@ -57,4 +61,5 @@ export interface StoreState {
     userBrackets: Bracket[];
     canonicalBrackets: Bracket[];
     postingBracket: boolean;
+    notification: string | null;
 }
