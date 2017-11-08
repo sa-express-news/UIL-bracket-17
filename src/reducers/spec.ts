@@ -2,8 +2,8 @@ import 'mocha';
 import * as chai from 'chai';
 const assert = chai.assert;
 
-import { bracketIndex, bracketID, nodeUpdate } from './index';
-import { UpdateBracketIndex, UpdateBracketID, UpdateNode } from '../actions';
+import { bracketIndex, bracketID, notificationUpdate, nodeUpdate } from './index';
+import { UpdateBracketIndex, UpdateBracketID, UpdateNode, UpdateNotification } from '../actions';
 
 import dummyBracket from '../data-structures/bracket/dummy-bracket';
 
@@ -31,5 +31,22 @@ describe('Reducers', () => {
 
             assert.strictEqual(bracketID(initialID, updateAction), 'div2_1a');
         });
+    });
+    describe('notification update reducer', () => {
+        const initialNotification = null as null;
+        const updateAction: UpdateNotification = {
+            type: 'UPDATE_NOTIFICATION',
+            notification: 'Test'
+        };
+
+        assert.strictEqual(notificationUpdate(initialNotification, updateAction), 'Test');
+
+        const newNotification = 'Blah blah';
+        const newUpdateAction: UpdateNotification = {
+            type: 'UPDATE_NOTIFICATION',
+            notification: null
+        };
+
+        assert.isNull(notificationUpdate(newNotification, newUpdateAction));
     });
 });
