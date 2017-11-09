@@ -80,3 +80,10 @@ export interface PostBracketResponse {
         id: number
     } | null
 }
+
+export interface fetchBracketReponse {
+    error: string | null;
+    data: {
+        bracket: Bracket
+    } | null;
+}
