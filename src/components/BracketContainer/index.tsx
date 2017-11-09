@@ -1,7 +1,6 @@
 import Bracket from '../Bracket';
-import * as actions from '../../actions';
 import { StoreState } from '../../types';
-import { connect, dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 
 const mapStateToProps = ({ userBrackets, activeBracketIndex }: StoreState) => {
     const currentBracket = userBrackets[activeBracketIndex];
@@ -13,4 +12,4 @@ const mapStateToProps = ({ userBrackets, activeBracketIndex }: StoreState) => {
     }
 }
 
-export default connect(mapStateToProps)(Bracket);
+export default connect(mapStateToProps)(Bracket as any);
