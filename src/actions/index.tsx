@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 import { Dispatch } from 'react-redux';
 
-import { Bracket, Team, PostBracketResponse, PostBracketRequest } from '../types';
+import { Bracket, Team, PostBracketResponse, PostBracketRequest, fetchBracketReponse } from '../types';
 
 export interface Action {
     type: string;
@@ -91,8 +91,6 @@ export const postBracket = (data: PostBracketRequest) => {
         dispatch(updateNotification('Saving your bracket...'));
 
         try {
-
-
             const serverResponseRaw = await fetch('https://expressnewsdata.com/brackets/football-playoffs-2017/bracket', {
                 method: 'POST',
                 headers: new Headers({ 'content-type': 'application/json' }),
@@ -102,8 +100,8 @@ export const postBracket = (data: PostBracketRequest) => {
             const serverResponse: PostBracketResponse = await serverResponseRaw.json();
 
             if (serverResponse.error !== null) {
-                dispatch(updateNotification('Error sending your bracket'))
-            } else if (serverResponse.error === null && serverResponse.data !== null) {
+                dispatch(updateNotification('Error sending your bracket'));
+            } else if (serverResponse.data !== null) {
                 const { created, id } = serverResponse.data;
                 if (created) dispatch(updateNotification('Bracket created!'));
                 else dispatch(updateNotification('Bracket updated!'));
@@ -114,6 +112,32 @@ export const postBracket = (data: PostBracketRequest) => {
 
         } catch (err) {
             dispatch(updateNotification('Error sending your bracket'));
+        }
+    }
+}
+
+export const fetchBracket = (id: number) => {
+    return async (dispatch: Dispatch<any>) => {
+        dispatch(updateNotification('Fetching bracket'));
+
+        try {
+            const serverResponseRaw = await fetch(`https://expressnewsdata.com/brackets/football-playoffs-2017/bracket/${id}`, {
+                headers: new Headers({ 'content-type': 'application/json' }),
+            });
+
+            const serverResponse: fetchBracketReponse = await serverResponseRaw.json();
+
+            if (serverResponse.error !== null) {
+                dispatch(updateNotification('Error fetching your bracket'));
+            } else if (serverResponse.data === null) {
+                dispatch(updateNotification('Sorry, no bracket found at that ID!'));
+            } else if (serverResponse.data !== null) {
+                const { bracket } = serverResponse.data;
+                dispatch(updateBracket(bracket));
+                dispatch(updateNotification('Fetched your bracket from the server!'));
+            }
+        } catch (e) {
+            dispatch(updateNotification('Error fetching your bracket'));
         }
     }
 }
