@@ -12,8 +12,8 @@ const Select = ({ options, dispatch }: SelectProps) => {
         dispatch(updateIndexAction);
     }
 
-    const optionComponents = options.map((option) => {
-        return <option value={option.value}>{option.text}</option>;
+    const optionComponents = options.map((option, index) => {
+        return <option value={option.value} key={index}>{option.text}</option>;
     });
 
     return (
