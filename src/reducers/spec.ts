@@ -2,8 +2,10 @@ import 'mocha';
 import * as chai from 'chai';
 const assert = chai.assert;
 
-import { bracketIndex, bracketID, notificationUpdate, nodeUpdate } from './index';
-import { UpdateBracketIndex, UpdateBracketID, UpdateNode, UpdateNotification } from '../actions';
+import { cloneDeep } from 'lodash';
+
+import { bracketIndex, bracketID, notificationUpdate, nodeUpdate, bracketUpdate } from './index';
+import { UpdateBracketIndex, UpdateBracketID, UpdateNode, UpdateNotification, UpdateBracket } from '../actions';
 
 import dummyBracket from '../data-structures/bracket/dummy-bracket';
 
@@ -48,5 +50,32 @@ describe('Reducers', () => {
         };
 
         assert.isNull(notificationUpdate(newNotification, newUpdateAction));
+    });
+    describe('full bracket update reducer', () => {
+        const brackets = [cloneDeep(dummyBracket)];
+
+        let newBracket = cloneDeep(dummyBracket);
+
+        const newTeam = {
+            name: 'Team A'
+        };
+
+        newBracket.champion.team = newTeam;
+
+        const updateAction: UpdateBracket = {
+            type: 'UPDATE_BRACKET',
+            bracket: newBracket
+        };
+
+        const updatedBrackets = bracketUpdate(brackets, updateAction);
+
+        const newFirstBracket = updatedBrackets[0];
+
+        it(`updates the bracket in state matching the provided bracket's identifier`, () => {
+            assert.deepEqual(newFirstBracket.champion.team, newTeam);
+        });
+        it('does not modify the original brackets passed to it', () => {
+            assert.isNull(brackets[0].champion.team);
+        });
     });
 });
