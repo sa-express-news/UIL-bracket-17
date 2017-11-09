@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 import { Dispatch } from 'react-redux';
 
-import { Team, PostBracketResponse, PostBracketRequest } from '../types';
+import { Bracket, Team, PostBracketResponse, PostBracketRequest } from '../types';
 
 export interface Action {
     type: string;
@@ -37,9 +37,9 @@ export interface UpdateNotification {
     notification: string | null;
 }
 
-export interface PostBracket {
-    type: constants.POST_BRACKET;
-    data: PostBracketRequest;
+export interface UpdateBracket {
+    type: constants.UPDATE_BRACKET;
+    bracket: Bracket;
 }
 
 export const updateBracketIndex = (index: number): UpdateBracketIndex => {
@@ -77,6 +77,13 @@ export const updateNotification = (message = null as string | null): UpdateNotif
         type: constants.UPDATE_NOTIFICATION,
         notification: message
     }
+}
+
+export const updateBracket = (bracket: Bracket): UpdateBracket => {
+    return {
+        type: constants.UPDATE_BRACKET,
+        bracket: bracket
+    };
 }
 
 export const postBracket = (data: PostBracketRequest) => {
