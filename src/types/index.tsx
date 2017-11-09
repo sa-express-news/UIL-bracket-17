@@ -52,7 +52,7 @@ export interface Bracket {
     name: string;
     games: Game[];
     champion: Node;
-    identifier?: string | number;
+    identifier?: string;
     dispatch?: Function;
 }
 
@@ -63,4 +63,20 @@ export interface StoreState {
     canonicalBrackets: Bracket[];
     postingBracket: boolean;
     notification: string | null;
+}
+
+export interface PostBracketRequest {
+    bracket: Bracket;
+    name?: string;
+    email: string;
+    conferenceDivision: string;
+}
+
+export interface PostBracketResponse {
+    error: string | null,
+    data:
+    {
+        created: boolean,
+        id: number
+    } | null
 }
