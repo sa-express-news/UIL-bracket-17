@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Bracket as BracketProps, Team } from '../../types';
+import { Bracket as BracketProps, Team, PostBracketRequest } from '../../types';
 
 import Game from '../Game';
 import Node from '../Node';
@@ -7,7 +7,7 @@ import Button from '../Button';
 import Select from '../Select';
 import SwipeContainer from '../SwipeContainer';
 
-import { UpdateNode, updateNode, updateBracketID } from '../../actions'
+import { UpdateNode, updateNode, updateBracketID, postBracket } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
@@ -31,6 +31,24 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
     dispatchNodeUpdate = (action: UpdateNode): Function => {
         return this.props.dispatch(action);
+    }
+
+    postBracketToServer = (): Function => {
+        // const hearstCookie = JSON.parse(decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent('hrstptok').replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")));
+        const userEmail = 'kfarhang0@gmail.com';
+        const bracket: BracketProps = {
+            name: this.props.name,
+            games: this.props.games,
+            champion: this.props.champion
+        };
+
+        const dataToSend: PostBracketRequest = {
+            bracket: bracket,
+            email: userEmail,
+            conferenceDivision: this.props.identifier
+        };
+
+        return this.props.dispatch(postBracket(dataToSend));
     }
 
     incrementGameIndex = (): void => {
@@ -117,7 +135,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         let saveButton = null;
 
         if (isBracketComplete(this.props)) {
-            saveButton = <Button text='Save bracket' clickHandler={() => console.log('saved')} />
+            saveButton = <Button text='Save bracket' clickHandler={this.postBracketToServer} />
         }
 
         let visibleBracket = null;
