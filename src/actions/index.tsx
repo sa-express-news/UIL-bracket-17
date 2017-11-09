@@ -1,6 +1,7 @@
 import * as constants from '../constants';
+import { Dispatch } from 'react-redux';
 
-import { Team } from '../types';
+import { Team, PostBracketResponse, PostBracketRequest } from '../types';
 
 export interface Action {
     type: string;
@@ -36,6 +37,11 @@ export interface UpdateNotification {
     notification: string | null;
 }
 
+export interface PostBracket {
+    type: constants.POST_BRACKET;
+    data: PostBracketRequest;
+}
+
 export const updateBracketIndex = (index: number): UpdateBracketIndex => {
     return {
         type: constants.UPDATE_BRACKET_INDEX,
@@ -58,11 +64,11 @@ export const updateNode = (id: number, team: Team): UpdateNode => {
     };
 }
 
-export const receiveBracketPostResponse = (apiResponse: { error: string | null, data: { created: boolean, id: number } | null }): ReceiveBracketPostResponse => {
+export const receiveBracketPostResponse = ({ error, data }: PostBracketResponse): ReceiveBracketPostResponse => {
     return {
         type: constants.RECEIVE_BRACKET_POST_RESPONSE,
-        error: apiResponse.error,
-        data: apiResponse.data
+        error: error,
+        data: data
     };
 }
 
@@ -70,5 +76,37 @@ export const updateNotification = (message = null as string | null): UpdateNotif
     return {
         type: constants.UPDATE_NOTIFICATION,
         notification: message
+    }
+}
+
+export const postBracket = (data: PostBracketRequest) => {
+    return async (dispatch: Dispatch<any>) => {
+        dispatch(updateNotification('Saving your bracket...'));
+
+        try {
+
+
+            const serverResponseRaw = await fetch('https://expressnewsdata.com/brackets/football-playoffs-2017/bracket', {
+                method: 'POST',
+                headers: new Headers({ 'content-type': 'application/json' }),
+                body: JSON.stringify(data)
+            });
+
+            const serverResponse: PostBracketResponse = await serverResponseRaw.json();
+
+            if (serverResponse.error !== null) {
+                dispatch(updateNotification('Error sending your bracket'))
+            } else if (serverResponse.error === null && serverResponse.data !== null) {
+                const { created, id } = serverResponse.data;
+                if (created) dispatch(updateNotification('Bracket created!'));
+                else dispatch(updateNotification('Bracket updated!'));
+
+                //Dispatch the ID action here
+            }
+
+
+        } catch (err) {
+            dispatch(updateNotification('Error sending your bracket'));
+        }
     }
 }
