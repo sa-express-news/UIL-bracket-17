@@ -242,7 +242,7 @@ export const isBracketComplete = (bracket: Bracket): boolean => {
 }
 
 export const isBracket = (object: Object): object is Bracket => {
-    if (Object.getOwnPropertyNames(object).length > 3 || Object.getOwnPropertyNames(object).length < 1) return false;
+    if (Object.getOwnPropertyNames(object).length > 4 || Object.getOwnPropertyNames(object).length < 1) return false;
     const { name, games, champion } = <Bracket>object;
     if (!name || !games || !champion) return false;
 

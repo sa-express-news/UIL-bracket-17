@@ -575,8 +575,8 @@ describe('Bracket', () => {
         it('returns true if the object passed matches the shape of the Bracket interface', () => {
             assert.isTrue(b.isBracket(bracket));
         });
-        it('returns false if the object passed has more than 3 properties', () => {
-            const badBracket = Object.assign({}, bracket, { foo: 'bar' });
+        it('returns false if the object passed has more than 4 properties', () => {
+            const badBracket = Object.assign({}, bracket, { foo: 'bar', baz: 'fest' });
             assert.isFalse(b.isBracket(badBracket));
         });
         it('returns false if the object passed is missing name, games or champion properties', () => {
