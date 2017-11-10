@@ -14,3 +14,9 @@ const App = ({ match, location, history }: RouteComponentProps<{ id: string }>) 
 }
 
 export default App;
+
+//WORKING BRACKETS
+
+//10140488802
+
+//16144782069095
