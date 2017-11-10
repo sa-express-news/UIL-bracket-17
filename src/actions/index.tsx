@@ -3,6 +3,8 @@ import { Dispatch } from 'react-redux';
 
 import { Bracket, Team, PostBracketResponse, PostBracketRequest, fetchBracketReponse } from '../types';
 
+import history from '../routerHistory';
+
 export interface Action {
     type: string;
 }
@@ -106,7 +108,7 @@ export const postBracket = (data: PostBracketRequest) => {
                 if (created) dispatch(updateNotification('Bracket created!'));
                 else dispatch(updateNotification('Bracket updated!'));
 
-                //Dispatch the ID action here
+                history.push(`${serverResponse.data.id}`);
             }
 
 
