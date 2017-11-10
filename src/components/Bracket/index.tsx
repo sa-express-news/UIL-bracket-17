@@ -7,7 +7,7 @@ import Button from '../Button';
 import Select from '../Select';
 import SwipeContainer from '../SwipeContainer';
 
-import { UpdateNode, updateNode, updateBracketID, postBracket } from '../../actions'
+import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
@@ -39,7 +39,8 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         const bracket: BracketProps = {
             name: this.props.name,
             games: this.props.games,
-            champion: this.props.champion
+            champion: this.props.champion,
+            identifier: this.props.identifier
         };
 
         const dataToSend: PostBracketRequest = {
@@ -65,6 +66,12 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
                 gameIndex: prevState.gameIndex === 0 ? this.props.games.length : prevState.gameIndex - 1
             };
         });
+    }
+
+    componentDidMount(): void {
+        if (this.props.bracketID) {
+            this.props.dispatch(fetchBracket(this.props.bracketID))
+        }
     }
 
     render() {
