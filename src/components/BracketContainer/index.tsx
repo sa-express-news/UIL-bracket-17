@@ -1,14 +1,17 @@
 import Bracket from '../Bracket';
-import { StoreState } from '../../types';
+import { StoreState, BracketContainer as BracketContainerProps } from '../../types';
 import { connect } from 'react-redux';
 
-const mapStateToProps = ({ userBrackets, activeBracketIndex }: StoreState) => {
+import { match } from 'react-router-dom';
+
+const mapStateToProps = ({ userBrackets, activeBracketIndex }: StoreState, { id }: BracketContainerProps) => {
     const currentBracket = userBrackets[activeBracketIndex];
     return {
         name: currentBracket.name,
         games: currentBracket.games,
         champion: currentBracket.champion,
-        identifier: currentBracket.identifier
+        identifier: currentBracket.identifier,
+        bracketID: parseInt(id)
     }
 }
 
