@@ -18,8 +18,8 @@ interface BracketState {
 }
 
 export default class Bracket extends React.Component<BracketProps, BracketState>{
-    constructor() {
-        super();
+    constructor(props: BracketProps) {
+        super(props);
         this.state = {
             gameIndex: 0
         };

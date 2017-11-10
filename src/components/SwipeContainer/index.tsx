@@ -13,8 +13,8 @@ interface SwipeContainerState {
 
 export default class SwipeContainer extends React.Component<SwipeContainerProps, SwipeContainerState> {
 
-    constructor() {
-        super();
+    constructor(props: SwipeContainerProps) {
+        super(props);
         this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
         this.state = {
             touchStartX: 0,
