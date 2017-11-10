@@ -5,7 +5,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+import history from './routerHistory';
 
 
 import { bracketApp } from './reducers';
@@ -21,7 +22,7 @@ const store = createStore(bracketApp, composeWithDevTools(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
       <Route path='/:id?' component={App} />
     </Router>
   </Provider>,
