@@ -54,6 +54,11 @@ export interface Bracket {
     champion: Node;
     identifier?: string;
     dispatch?: Function;
+    bracketID?: number;
+}
+
+export interface BracketContainer {
+    id: string;
 }
 
 export interface StoreState {
