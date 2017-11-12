@@ -88,52 +88,8 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
         const divisionOptions = [
             {
-                value: 'div1_1a',
-                text: 'Division 1, 1A'
-            },
-            {
-                value: 'div2_1a',
-                text: 'Division 2, 1A'
-            },
-            {
-                value: 'div1_2a',
-                text: 'Division 1, 2A'
-            },
-            {
-                value: 'div2_2a',
-                text: 'Division 2, 2A'
-            },
-            {
-                value: 'div3_1a',
-                text: 'Division 3, 1A'
-            },
-            {
-                value: 'div3_2a',
-                text: 'Division 3, 2A'
-            },
-            {
-                value: 'div4_1a',
-                text: 'Division 4, 1A'
-            },
-            {
-                value: 'div4_2a',
-                text: 'Division 4, 2A'
-            },
-            {
-                value: 'div5_1a',
-                text: 'Division 5, 1A'
-            },
-            {
-                value: 'div5_2a',
-                text: 'Division 5, 2A'
-            },
-            {
-                value: 'div6_1a',
-                text: 'Division 6, 1A'
-            },
-            {
-                value: 'div6_2a',
-                text: 'Division 6, 2A'
+                value: 'div1_6a',
+                text: '6A, Divison 1'
             }
         ];
 
@@ -176,18 +132,37 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
                         {gameComponents[2]}
                         <div className="game-spacer">&nbsp;</div>
                         {gameComponents[3]}
-                        <div className="spacer">&nbsp;</div>
-                    </div>
-                    <div className="round">
-                        <div className="spacer">&nbsp;</div>
+                        <div className="game-spacer">&nbsp;</div>
                         {gameComponents[4]}
                         <div className="game-spacer">&nbsp;</div>
                         {gameComponents[5]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[6]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[7]}
                         <div className="spacer">&nbsp;</div>
                     </div>
                     <div className="round">
                         <div className="spacer">&nbsp;</div>
-                        {gameComponents[6]}
+                        {gameComponents[8]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[9]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[10]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[11]}
+                        <div className="spacer">&nbsp;</div>
+                    </div>
+                    <div className="round">
+                        <div className="spacer">&nbsp;</div>
+                        {gameComponents[12]}
+                        <div className="game-spacer">&nbsp;</div>
+                        {gameComponents[13]}
+                        <div className="spacer">&nbsp;</div>
+                    </div>
+                    <div className="round">
+                        <div className="spacer">&nbsp;</div>
+                        {gameComponents[14]}
                         <div className="spacer">&nbsp;</div>
                     </div>
                     <div className="round">
