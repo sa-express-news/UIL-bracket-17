@@ -102,7 +102,7 @@ export const postBracket = (data: PostBracketRequest) => {
             const serverResponse: PostBracketResponse = await serverResponseRaw.json();
 
             if (serverResponse.error !== null) {
-                dispatch(updateNotification('Error sending your bracket'));
+                dispatch(updateNotification(serverResponse.error));
             } else if (serverResponse.data !== null) {
                 const { created, id } = serverResponse.data;
                 if (created) dispatch(updateNotification('Bracket created!'));
