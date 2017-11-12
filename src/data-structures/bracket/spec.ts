@@ -4,9 +4,7 @@ const assert = chai.assert;
 
 import { Bracket, Node } from '../../types';
 import * as b from './index';
-import bracketData from './dummy-bracket';
-
-import canonicalBrackets from '../../reducers/startingBrackets';
+import bracketData, { threeRoundBracket } from './dummy-bracket';
 
 const partiallyFilledBracketData = returnPartiallyFilledBracket();
 
@@ -268,10 +266,10 @@ describe('Bracket', () => {
             assert.isNull(b.getNodeAt(updatedBracket, 7).team);
         });
         describe('Three-round bracket', () => {
-            let bracket = canonicalBrackets[0];
+            let bracket = threeRoundBracket;
 
             beforeEach(() => {
-                bracket = canonicalBrackets[0];
+                bracket = threeRoundBracket;
             });
 
             //At the start of every test, the bracket looks like this:
@@ -454,10 +452,10 @@ describe('Bracket', () => {
         });
 
         describe('Three-round bracket', () => {
-            let bracket = canonicalBrackets[0];
+            let bracket = threeRoundBracket;
 
             beforeEach(() => {
-                bracket = canonicalBrackets[0];
+                bracket = threeRoundBracket;
             });
 
             //At the start of every test, the bracket looks like this:
