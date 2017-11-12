@@ -89,8 +89,20 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         const divisionOptions = [
             {
                 value: 'div1_6a',
-                text: '6A, Divison 1'
-            }
+                text: 'Class 6A, Divison 1'
+            },
+            {
+                value: 'div2_6a',
+                text: 'Class 6A, Divison 2'
+            },
+            {
+                value: 'div1_5a',
+                text: 'Class 5A, Divison 1'
+            },
+            {
+                value: 'div1_5a',
+                text: 'Class 5A, Divison 2'
+            },
         ];
 
         const selectComponent = <Select options={divisionOptions} dispatch={this.props.dispatch} />;
