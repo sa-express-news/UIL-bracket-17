@@ -7,7 +7,7 @@ import Button from '../Button';
 import Select from '../Select';
 import SwipeContainer from '../SwipeContainer';
 
-import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket } from '../../actions'
+import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, updateNotification } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
@@ -15,13 +15,15 @@ import './Bracket.css';
 
 interface BracketState {
     gameIndex: number;
+    userEmail: string;
 }
 
 export default class Bracket extends React.Component<BracketProps, BracketState>{
     constructor(props: BracketProps) {
         super(props);
         this.state = {
-            gameIndex: 0
+            gameIndex: 0,
+            userEmail: ''
         };
     }
 
@@ -33,23 +35,26 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         return this.props.dispatch(action);
     }
 
-    postBracketToServer = (): Function => {
-        // const hearstCookie = JSON.parse(decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent('hrstptok').replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")));
-        const userEmail = 'kfarhang0@gmail.com';
-        const bracket: BracketProps = {
-            name: this.props.name,
-            games: this.props.games,
-            champion: this.props.champion,
-            identifier: this.props.identifier
-        };
+    postBracketToServer = (): Function | void => {
+        if (!this.isEmail(this.state.userEmail)) {
+            this.props.dispatch(updateNotification('Please enter a valid email address'));
+        } else {
+            const userEmail = this.state.userEmail;
+            const bracket: BracketProps = {
+                name: this.props.name,
+                games: this.props.games,
+                champion: this.props.champion,
+                identifier: this.props.identifier
+            };
 
-        const dataToSend: PostBracketRequest = {
-            bracket: bracket,
-            email: userEmail,
-            conferenceDivision: this.props.identifier
-        };
+            const dataToSend: PostBracketRequest = {
+                bracket: bracket,
+                email: userEmail,
+                conferenceDivision: this.props.identifier
+            };
 
-        return this.props.dispatch(postBracket(dataToSend));
+            return this.props.dispatch(postBracket(dataToSend));
+        }
     }
 
     incrementGameIndex = (): void => {
@@ -66,6 +71,14 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
                 gameIndex: prevState.gameIndex === 0 ? this.props.games.length : prevState.gameIndex - 1
             };
         });
+    }
+
+    handleEmailInputChange = (event: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ userEmail: event.currentTarget.value });
+    }
+
+    isEmail = (string: string): boolean => {
+        return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(string);
     }
 
     componentDidMount(): void {
@@ -109,6 +122,12 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
         if (!this.props.bracketID) {
             selectComponent = <Select options={divisionOptions} dispatch={this.props.dispatch} />;
+        }
+
+        let emailInput = null;
+
+        if (!this.props.bracketID) {
+            emailInput = <input type="text" value={this.state.userEmail} onChange={this.handleEmailInputChange}></input>
         }
 
         let saveButton = null;
@@ -182,6 +201,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         return (
             <div>
                 {selectComponent}
+                {emailInput}
                 < div className="Bracket" >
                     <h3>{name}</h3>
                     {visibleBracket}
