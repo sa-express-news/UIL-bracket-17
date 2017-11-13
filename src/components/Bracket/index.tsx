@@ -132,8 +132,8 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
         let saveButton = null;
 
-        if (isBracketComplete(this.props)) {
-            saveButton = <Button text='Save bracket' clickHandler={this.postBracketToServer} />
+        if (isBracketComplete(this.props) && !this.props.bracketID) {
+            saveButton = <Button text='Save/update' clickHandler={this.postBracketToServer} />
         }
 
         let visibleBracket = null;
@@ -199,14 +199,14 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         }
 
         return (
-            <div>
-                {selectComponent}
+            <div className="BracketContainer">
                 {emailInput}
+                {saveButton}
+                {selectComponent}
                 < div className="Bracket" >
                     <h3>{name}</h3>
                     {visibleBracket}
                 </div >
-                {saveButton}
             </div>
         )
     }

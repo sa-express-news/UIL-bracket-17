@@ -26,4 +26,8 @@
     .spacer{
        flex-grow: 1;
     }
+
+    .BracketContainer input{
+        display: block;
+    }
 }
