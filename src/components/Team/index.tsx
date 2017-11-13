@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Team as TeamProps } from '../../types';
 
+import './Team.css';
+
 const Team = (teamProps: TeamProps) => {
     const { name, colors, logo } = teamProps;
 

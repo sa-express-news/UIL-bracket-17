@@ -196,9 +196,11 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
         return (
             <div className="BracketContainer">
-                {emailInput}
-                {saveButton}
-                {selectComponent}
+                <div className="input-box">
+                    {emailInput}
+                    {saveButton}
+                    {selectComponent}
+                </div>
                 < div className="Bracket" >
                     <h3>{name}</h3>
                     {visibleBracket}

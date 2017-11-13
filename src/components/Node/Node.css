@@ -1,5 +1,6 @@
 .Node{
-    border: 1px solid black;
+    background: #333;
+    color: #FAFAFA;
     min-width: 3em;
     min-height: 3em;
 }

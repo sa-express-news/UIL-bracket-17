@@ -1,13 +1,14 @@
-.Game{
+/* .Game{
     border: 1px solid blue;
-}
+} */
+
 
 .game-spacer{
     /* border-right: 1px solid black; */
     flex-grow: 1;
 }
 
-.game-spacer p{
+.Game p{
     margin: 0;
 }
 
