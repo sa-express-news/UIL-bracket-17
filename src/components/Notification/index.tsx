@@ -19,7 +19,7 @@ const Notification = ({ message, buttonClickHandler }: NotificationProps) => {
     };
 
     return (
-        <div className='Notification' style={style}>
+        <div className='Notification' style={style} onClick={buttonClickHandler as any}>
             <p>{message}</p>
             <Button text="OK" clickHandler={buttonClickHandler} />
         </div>
