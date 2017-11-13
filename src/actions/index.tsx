@@ -137,6 +137,23 @@ export const fetchBracket = (id: number) => {
                 const { bracket } = serverResponse.data;
                 dispatch(updateBracket(bracket));
                 dispatch(updateNotification('Fetched your bracket from the server!'));
+                console.log(bracket.identifier);
+                switch (bracket.identifier) {
+                    case 'div1_6a':
+                        dispatch(updateBracketIndex(0));
+                        break;
+                    case 'div2_6a':
+                        dispatch(updateBracketIndex(1));
+                        break;
+                    case 'div1_5a':
+                        dispatch(updateBracketIndex(2));
+                        break;
+                    case 'div2_5a':
+                        dispatch(updateBracketIndex(3));
+                        break;
+                    default:
+                        return;
+                }
             }
         } catch (e) {
             dispatch(updateNotification('Error fetching your bracket'));
