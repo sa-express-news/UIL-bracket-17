@@ -105,7 +105,11 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             },
         ];
 
-        const selectComponent = <Select options={divisionOptions} dispatch={this.props.dispatch} />;
+        let selectComponent = null;
+
+        if (!this.props.bracketID) {
+            selectComponent = <Select options={divisionOptions} dispatch={this.props.dispatch} />;
+        }
 
         let saveButton = null;
 
