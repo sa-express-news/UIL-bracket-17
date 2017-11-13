@@ -1,5 +1,6 @@
 export interface Button {
     text: string;
+    disabled?: boolean;
     clickHandler?: Function;
 }
 
