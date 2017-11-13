@@ -1,0 +1,20 @@
+.Game{
+    border: 1px solid blue;
+}
+
+.game-spacer{
+    /* border-right: 1px solid black; */
+    flex-grow: 1;
+}
+
+.game-spacer p{
+    margin: 0;
+}
+
+/* .node-top{
+    border-bottom: 1px solid black;
+}
+
+.node-bottom{
+    border-top: 1px solid black;
+} */

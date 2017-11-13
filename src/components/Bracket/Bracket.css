@@ -4,24 +4,26 @@
         flex-direction: row;
     }
 
+    div{
+        /* border: 1px solid black; */
+    }
+
     .round{
         display: flex;
         flex-direction:column;
         justify-content:center;
-        width:200px;
+        width: 15vw;
         padding:0;
-    
+    }
+
+
+    .round:before, .round:after{
+        content: " ";
+        display: inline-block;
+        flex-grow:.5;
     }
 
     .spacer{
        flex-grow: 1;
-    }
-
-    .spacer:first-child, .spacer:last-child{
-        flex-grow: .5;
-    }
-
-    .game-spacer{
-        flex-grow: 1;
     }
 }

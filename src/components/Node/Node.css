@@ -3,3 +3,11 @@
     min-width: 3em;
     min-height: 3em;
 }
+
+/* .Node:first-child{
+    border-bottom: 1px solid black;
+}
+
+.Node:not(:first-child){
+    border-top: 1px solid black;
+} */
