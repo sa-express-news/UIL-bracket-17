@@ -1,6 +1,10 @@
 .Notification{
-    height: 20vh;
-    margin-top: 20vh;
-    width: 100;
+    background: #1E6DF9;
+    width: 100%;
+    transition: transform .15s linear;
     z-index: 5;
+}
+
+.Notification p{
+    margin: 0;
 }

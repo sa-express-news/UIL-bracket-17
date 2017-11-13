@@ -4,20 +4,24 @@ import { updateNotification } from '../../actions';
 
 import Button from '../Button';
 
+import './Notification.css';
+
 const Notification = ({ message, buttonClickHandler }: NotificationProps) => {
-    let component = null;
+
+    let style = {
+        transform: `translateY(-100%)`
+    };
 
     if (message !== null) {
-        component =
-            <div className="Notification">
-                <p>{message}</p>
-                <Button text="OK" clickHandler={buttonClickHandler} />
-            </div>;
-    }
+        style = {
+            transform: `translateY(0)`
+        }
+    };
 
     return (
-        <div>
-            {component}
+        <div className='Notification' style={style}>
+            <p>{message}</p>
+            <Button text="OK" clickHandler={buttonClickHandler} />
         </div>
     )
 }
