@@ -1,14 +1,17 @@
 .Node{
     background: #333;
+    border-radius: 5px;
     color: #FAFAFA;
     min-width: 3em;
-    min-height: 3em;
+    min-height: 2.5em;
 }
 
-/* .Node:first-child{
-    border-bottom: 1px solid black;
+.Node p{
+    margin: 0;
 }
 
-.Node:not(:first-child){
-    border-top: 1px solid black;
-} */
+@media (min-width: 768px){
+    .Node{
+        min-height: 2em;
+    }
+}

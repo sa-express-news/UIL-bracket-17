@@ -4,10 +4,6 @@
         flex-direction: row;
     }
 
-    div{
-        /* border: 1px solid black; */
-    }
-
     .round{
         display: flex;
         flex-direction:column;
