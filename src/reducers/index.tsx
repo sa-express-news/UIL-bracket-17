@@ -30,27 +30,16 @@ export const bracketID = (state: string = 'div1_1a', action: UpdateBracketID): s
 export const nodeUpdate = (state: Bracket = startingBrackets[0], action: UpdateNode): Bracket => {
     let targetNodeID;
 
+    // If touch is enabled, the user is clicking on a node to update its child.
+
     if ('ontouchstart' in document.documentElement) {
         targetNodeID = getNodeAt(state, action.id).childID;
+
+        // Otherwise, the user is updating the target node itself.
+
     } else {
         targetNodeID = action.id;
-
     }
-
-
-
-    // // If we're on a desktop screen or the action is being called on the champion, we want to 
-    // // run the update on that node.
-
-    // if (state.champion.id === action.id || window.innerWidth > 767) {
-    // }
-
-    // // However, due to how we update nodes on mobile - by tapping - if neither of the above are true,
-    // // We want to update the node's CHILD - because we tapped its parent to choose it would win.
-
-    // else {
-    //     targetNodeID = getNodeAt(state, action.id).childID;
-    // }
 
     return fullNodeUpdate(state, targetNodeID, action.team);
 

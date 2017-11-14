@@ -11,9 +11,11 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
 
     const handleClick = (event: any): void => {
         event.preventDefault();
-        const updateAction = updateNode(id, team);
-        if (updateNodeFunction) { updateNodeFunction(updateAction); }
-        updateGameIndexFunction();
+        if (touchEnabled) {
+            const updateAction = updateNode(id, team);
+            if (updateNodeFunction) { updateNodeFunction(updateAction); }
+            updateGameIndexFunction();
+        }
     };
 
     const handleDragOver = (event: DragEvent): void => {
@@ -23,10 +25,12 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
 
     const handleDrop = (event: DragEvent): void => {
         event.preventDefault();
-        const desiredTeam = JSON.parse(event.dataTransfer.getData('text'));
-        if (legalityFunction(id, desiredTeam)) {
-            const updateAction = updateNode(id, desiredTeam);
-            updateNodeFunction(updateAction);
+        if (!touchEnabled) {
+            const desiredTeam = JSON.parse(event.dataTransfer.getData('text'));
+            if (legalityFunction(id, desiredTeam)) {
+                const updateAction = updateNode(id, desiredTeam);
+                updateNodeFunction(updateAction);
+            }
         }
     }
 
