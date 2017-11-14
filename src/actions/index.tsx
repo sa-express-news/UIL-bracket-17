@@ -116,7 +116,7 @@ export const postBracket = (data: PostBracketRequest) => {
             } else if (serverResponse.data !== null) {
                 const { created, id } = serverResponse.data;
                 if (created) dispatch(updateNotification('Bracket created! Bookmark this URL to return to your bracket later and check how you did. If you want to create a bracket for another class or division, just hit the back button.'));
-                else dispatch(updateNotification('Bracket updated! Bookmark this URL to return to your bracket later and check how you did. If you want to create a bracket for another class or division, just hit the back button.'));
+                else dispatch(updateNotification(`Bracket updated! Bookmark this URL (https://expressnewsdata.com/brackets/uil-2017-bracket/${id}) to return to your bracket later and check how you did. If you want to create a bracket for another class or division, just hit the back button.`));
 
                 history.push(`${serverResponse.data.id}`);
             }
