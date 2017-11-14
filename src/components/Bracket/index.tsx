@@ -12,6 +12,7 @@ import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, upd
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
 import './Bracket.css';
+import instructions from './instructions';
 
 interface BracketState {
     gameIndex: number;
@@ -102,6 +103,10 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal}
             updateNodeFunction={this.dispatchNodeUpdate} updateGameIndexFunction={(): null => null} touchEnabled={this.props.touchEnabled} />;
 
+        const instructionParagraphs = instructions.map((paragraph, index) => {
+            return <p className="instructions" key={index}>{paragraph}</p>
+        })
+
         const divisionOptions = [
             {
                 value: 'div1_6a',
@@ -130,10 +135,10 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         let emailInput = null;
 
         if (!this.props.bracketID) {
-            emailInput = <input type="text" value={this.state.userEmail} onChange={this.handleEmailInputChange}></input>
+            emailInput = <input type="text" value={this.state.userEmail} placeholder={'Your email'} onChange={this.handleEmailInputChange}></input>
         }
 
-        let saveButton = <Button text='Save/update' clickHandler={this.postBracketToServer} disabled={isBracketComplete(this.props) && !this.props.bracketID ? false : true} />
+        let saveButton = <Button text='Save' clickHandler={this.postBracketToServer} disabled={isBracketComplete(this.props) && !this.props.bracketID ? false : true} />
 
         let visibleBracket = null;
 
@@ -199,6 +204,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
         return (
             <div className="BracketContainer">
+                {instructionParagraphs}
                 <div className="input-box">
                     {emailInput}
                     {saveButton}
