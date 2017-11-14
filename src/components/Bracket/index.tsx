@@ -12,7 +12,7 @@ import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, upd
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
 import './Bracket.css';
-import instructions from './instructions';
+import instructions, { mobileNote } from './instructions';
 
 interface BracketState {
     gameIndex: number;
@@ -105,7 +105,9 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
         const instructionParagraphs = instructions.map((paragraph, index) => {
             return <p className="instructions" key={index}>{paragraph}</p>
-        })
+        });
+
+        const mobileNoteParagraph = window.innerWidth > 767 ? null : <p className="instructions">{mobileNote}</p>
 
         const divisionOptions = [
             {
@@ -205,6 +207,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         return (
             <div className="BracketContainer">
                 {instructionParagraphs}
+                {mobileNote}
                 <div className="input-box">
                     {emailInput}
                     {saveButton}
