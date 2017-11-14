@@ -11,3 +11,7 @@
 .game-spacer{
     flex-grow: 1;
 }
+
+.game-spacer p{
+    min-height: 18px;
+}

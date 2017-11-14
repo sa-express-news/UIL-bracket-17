@@ -166,8 +166,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 17,
@@ -184,8 +184,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 19,
@@ -202,8 +202,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 21,
@@ -220,8 +220,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 23,
@@ -238,8 +238,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 25,
@@ -256,8 +256,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 27,
@@ -274,8 +274,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 29,
@@ -464,8 +464,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 17,
@@ -482,8 +482,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 19,
@@ -500,8 +500,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 21,
@@ -518,8 +518,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 23,
@@ -536,8 +536,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 25,
@@ -554,8 +554,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 27,
@@ -572,8 +572,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 29,
@@ -762,8 +762,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 17,
@@ -780,8 +780,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 19,
@@ -798,8 +798,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 21,
@@ -816,8 +816,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 23,
@@ -834,8 +834,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 25,
@@ -852,8 +852,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 27,
@@ -870,8 +870,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 29,
@@ -1060,8 +1060,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 17,
@@ -1078,8 +1078,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 19,
@@ -1096,8 +1096,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 21,
@@ -1114,8 +1114,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 23,
@@ -1132,8 +1132,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 25,
@@ -1150,8 +1150,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 27,
@@ -1168,8 +1168,8 @@ const startingBrackets: Bracket[] = [
                 ]
             },
             {
-                location: 'TBA',
-                time: 'TBA',
+                location: '',
+                time: '',
                 nodes: [
                     {
                         id: 29,
