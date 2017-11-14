@@ -4,7 +4,9 @@ const instructions: string[] = [
     `Once you’ve completed your bracket(s), fill in your email and hit “save.” Then, bookmark the URL and come back anytime to see how you’re doing. You have until Thursday at 7 p.m. to adjust your bracket. Good luck!`
 ];
 
-export const touchNote = `You'll see one matchup at a time on the screen. Tap the team you think will win to move to the next matchup. Swipe left if you change your mind and want to move back.`
+export const mobileNote = `You'll see one matchup at a time on the screen. Swipe left if you change your mind and want to move back.`;
+
+export const touchNote = 'Tap the team you think will win to move to the next matchup.';
 
 export const dragNote = `To fill out your bracket, drag a team as far as you think they'll make it in the playoffs.`
 
