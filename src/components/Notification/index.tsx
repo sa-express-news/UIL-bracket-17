@@ -9,11 +9,13 @@ import './Notification.css';
 const Notification = ({ message, buttonClickHandler }: NotificationProps) => {
 
     let style = {
+        display: 'none',
         transform: `translateY(-100%)`
     };
 
     if (message !== null) {
         style = {
+            display: 'block',
             transform: `translateY(0)`
         }
     };

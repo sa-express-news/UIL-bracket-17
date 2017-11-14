@@ -8,3 +8,13 @@
 .Notification p{
     margin: 0;
 }
+
+.Notification p, .Notification button{
+    margin-left: 2%;
+}
+
+@media(min-width: 768px){
+    .Notification p, .Notification button{
+        margin-left: 1%;
+    }
+}

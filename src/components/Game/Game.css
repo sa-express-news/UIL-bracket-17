@@ -1,7 +1,13 @@
-.game-spacer{
-    flex-grow: 1;
+.Game{
+    /* border-right: 1px solid black; */
+    display: flex;
+    flex-flow: column wrap;
 }
 
 .Game p{
     margin: 0;
+}
+
+.game-spacer{
+    flex-grow: 1;
 }

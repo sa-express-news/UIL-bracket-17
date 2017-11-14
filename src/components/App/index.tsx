@@ -4,9 +4,11 @@ import BracketContainer from '../BracketContainer';
 
 import { RouteComponentProps } from 'react-router-dom';
 
+import './App.css';
+
 const App = ({ match, location, history }: RouteComponentProps<{ id: string }>) => {
   return (
-    <div>
+    <div className="App">
       <NotificationContainer />
       <BracketContainer id={match.params.id} />
     </div>
