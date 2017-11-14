@@ -44,6 +44,10 @@ export interface UpdateBracket {
     bracket: Bracket;
 }
 
+export interface ToggleTouch {
+    type: constants.TOGGLE_TOUCH;
+}
+
 export const updateBracketIndex = (index: number): UpdateBracketIndex => {
     return {
         type: constants.UPDATE_BRACKET_INDEX,
@@ -85,6 +89,12 @@ export const updateBracket = (bracket: Bracket): UpdateBracket => {
     return {
         type: constants.UPDATE_BRACKET,
         bracket: bracket
+    };
+}
+
+export const toggleTouch = (): ToggleTouch => {
+    return {
+        type: constants.TOGGLE_TOUCH
     };
 }
 

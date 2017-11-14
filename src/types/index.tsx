@@ -69,6 +69,7 @@ export interface StoreState {
     canonicalBrackets: Bracket[];
     postingBracket: boolean;
     notification: string | null;
+    touchEnabled: boolean;
 }
 
 export interface PostBracketRequest {

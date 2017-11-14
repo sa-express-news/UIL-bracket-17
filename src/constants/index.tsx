@@ -15,3 +15,6 @@ export type UPDATE_NOTIFICATION = typeof UPDATE_NOTIFICATION;
 
 export const UPDATE_BRACKET = 'UPDATE_BRACKET';
 export type UPDATE_BRACKET = typeof UPDATE_BRACKET;
+
+export const TOGGLE_TOUCH = 'TOGGLE_TOUCH';
+export type TOGGLE_TOUCH = typeof TOGGLE_TOUCH;

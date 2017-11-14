@@ -4,8 +4,8 @@ const assert = chai.assert;
 
 import { cloneDeep } from 'lodash';
 
-import { bracketIndex, bracketID, notificationUpdate, nodeUpdate, bracketUpdate } from './index';
-import { UpdateBracketIndex, UpdateBracketID, UpdateNode, UpdateNotification, UpdateBracket } from '../actions';
+import { bracketIndex, bracketID, notificationUpdate, nodeUpdate, bracketUpdate, touchToggle } from './index';
+import { UpdateBracketIndex, UpdateBracketID, UpdateNode, UpdateNotification, UpdateBracket, ToggleTouch } from '../actions';
 
 import dummyBracket from '../data-structures/bracket/dummy-bracket';
 
@@ -35,21 +35,25 @@ describe('Reducers', () => {
         });
     });
     describe('notification update reducer', () => {
-        const initialNotification = null as null;
-        const updateAction: UpdateNotification = {
-            type: 'UPDATE_NOTIFICATION',
-            notification: 'Test'
-        };
+        it('sets the notification to a string if the action contains a string', () => {
+            const initialNotification = null as null;
+            const updateAction: UpdateNotification = {
+                type: 'UPDATE_NOTIFICATION',
+                notification: 'Test'
+            };
 
-        assert.strictEqual(notificationUpdate(initialNotification, updateAction), 'Test');
+            assert.strictEqual(notificationUpdate(initialNotification, updateAction), 'Test');
+        });
 
-        const newNotification = 'Blah blah';
-        const newUpdateAction: UpdateNotification = {
-            type: 'UPDATE_NOTIFICATION',
-            notification: null
-        };
+        it('sets the notification to null if the action contains null', () => {
+            const newNotification = 'Blah blah';
+            const newUpdateAction: UpdateNotification = {
+                type: 'UPDATE_NOTIFICATION',
+                notification: null
+            };
 
-        assert.isNull(notificationUpdate(newNotification, newUpdateAction));
+            assert.isNull(notificationUpdate(newNotification, newUpdateAction));
+        });
     });
     describe('full bracket update reducer', () => {
         const brackets = [cloneDeep(dummyBracket)];
@@ -76,6 +80,25 @@ describe('Reducers', () => {
         });
         it('does not modify the original brackets passed to it', () => {
             assert.isNull(brackets[0].champion.team);
+        });
+    });
+    describe('touch toggle reducer', () => {
+        it('returns true if the previous state is false', () => {
+            const initialState = false;
+
+            const updateAction: ToggleTouch = {
+                type: 'TOGGLE_TOUCH'
+            };
+            assert.isTrue(touchToggle(initialState, updateAction));
+        });
+        it('returns false if the previous state is true', () => {
+            const initialState = true;
+
+            const updateAction: ToggleTouch = {
+                type: 'TOGGLE_TOUCH'
+            };
+
+            assert.isFalse(touchToggle(initialState, updateAction));
         });
     });
 });
