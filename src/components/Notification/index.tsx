@@ -20,10 +20,12 @@ const Notification = ({ message, buttonClickHandler }: NotificationProps) => {
         }
     };
 
+    let button = window.innerWidth < 768 ? null : <Button text="Okay" clickHandler={buttonClickHandler} />;
+
     return (
         <div className='Notification' style={style} onClick={buttonClickHandler as any}>
             <p>{message}</p>
-            <Button text="OK" clickHandler={buttonClickHandler} />
+            {button}
         </div>
     )
 }

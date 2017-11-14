@@ -1,20 +1,11 @@
 .Notification{
-    background: #1E6DF9;
+    /* background: #1E6DF9; */
     width: 100%;
     transition: transform .15s linear;
     z-index: 5;
 }
 
 .Notification p{
-    margin: 0;
-}
-
-.Notification p, .Notification button{
-    margin-left: 2%;
-}
-
-@media(min-width: 768px){
-    .Notification p, .Notification button{
-        margin-left: 1%;
-    }
+    display: inline-block;
+    margin-right: 1vw;
 }

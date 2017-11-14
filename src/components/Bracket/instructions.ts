@@ -6,4 +6,6 @@ const instructions: string[] = [
 
 export const mobileNote = `You'll see one matchup at a time on the screen. Tap the team you think will win to move to the next matchup. Swipe left if you change your mind and want to move back.`
 
+export const dragNote = `To fill out your bracket, drag a team as far as you think they'll make it in the playoffs.`
+
 export default instructions;

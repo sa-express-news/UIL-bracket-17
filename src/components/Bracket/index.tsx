@@ -6,13 +6,14 @@ import Node from '../Node';
 import Button from '../Button';
 import Select from '../Select';
 import SwipeContainer from '../SwipeContainer';
+import NotificationContainer from '../NotificationContainer';
 
 import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, updateNotification, toggleTouch } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
 import './Bracket.css';
-import instructions, { mobileNote } from './instructions';
+import instructions, { mobileNote, dragNote } from './instructions';
 
 interface BracketState {
     gameIndex: number;
@@ -107,7 +108,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             return <p className="instructions" key={index}>{paragraph}</p>
         });
 
-        const mobileNoteParagraph = window.innerWidth > 767 ? null : <p className="instructions">{mobileNote}</p>
+        let usageNoteParagraph = <p className="instructions">{window.innerWidth > 767 ? dragNote : mobileNote}</p>
 
         const divisionOptions = [
             {
@@ -207,14 +208,14 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         return (
             <div className="BracketContainer">
                 {instructionParagraphs}
-                {mobileNote}
+                {usageNoteParagraph}
                 <div className="input-box">
                     {emailInput}
                     {saveButton}
                     {selectComponent}
                 </div>
-                < div className="Bracket" >
-                    <h3>{name}</h3>
+                <NotificationContainer />
+                <div>
                     {visibleBracket}
                 </div >
             </div>

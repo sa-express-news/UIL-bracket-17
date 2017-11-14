@@ -1,12 +1,5 @@
-.BracketContainer{
-    margin: 0 auto;
-    width: 96%;
-}
-
-@media (min-width: 768px){
-    .BracketContainer{
-        width: 98%;
-    }
+.input-box{
+    margin-bottom: 1em;
 }
 
 @media (min-width: 768px){
@@ -23,8 +16,8 @@
         width: 15vw;
     }
 
-    .input-box, .round{
-        /* margin-left: 1vw; */
+    .round:not(:first-of-type){
+        margin-left: 1vw;
     }
 
 

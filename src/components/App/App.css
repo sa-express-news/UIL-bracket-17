@@ -1,3 +1,18 @@
 .App{
     font-family: Helvetica, sans-serif;
+    margin: 0 auto;
+    width: 96%;
+}
+
+.App img{
+    width: 100%;
+}
+
+@media (min-width: 768px){
+    .App{
+        width: 98%;
+    }
+    .App img{
+        width: 500px;
+    }
 }

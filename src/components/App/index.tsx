@@ -1,5 +1,4 @@
 import * as React from 'react';
-import NotificationContainer from '../NotificationContainer';
 import BracketContainer from '../BracketContainer';
 
 import { RouteComponentProps } from 'react-router-dom';
@@ -8,9 +7,11 @@ import './App.css';
 
 const App = ({ match, location, history }: RouteComponentProps<{ id: string }>) => {
   return (
-    <div className="App">
-      <NotificationContainer />
-      <BracketContainer id={match.params.id} />
+    <div>
+      <div className="App">
+        <img className="logo" src="http://www.expressnews.com/img/modules/siteheader/logos/logo_home_large.png" alt="San Antonio Express-News" />
+        <BracketContainer id={match.params.id} />
+      </div>
     </div>
   )
 }
