@@ -13,7 +13,7 @@ import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, upd
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
 import './Bracket.css';
-import instructions, { mobileNote, dragNote } from './instructions';
+import instructions, { touchNote, dragNote } from './instructions';
 
 interface BracketState {
     gameIndex: number;
@@ -108,7 +108,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             return <p className="instructions" key={index}>{paragraph}</p>
         });
 
-        let usageNoteParagraph = <p className="instructions">{window.innerWidth > 767 ? dragNote : mobileNote}</p>
+        let usageNoteParagraph = <p className="instructions">{this.props.touchEnabled ? touchNote : dragNote}</p>
 
         const divisionOptions = [
             {
