@@ -35,7 +35,7 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
     }
 
     return (
-        <div className="Node" onClick={touchEnabled ? handleClick : null} onDragOver={handleDragOver as any} onDrop={handleDrop as any}>
+        <div className="Node" onClick={touchEnabled ? handleClick : null} onDragOver={handleDragOver as any} onDrop={!touchEnabled ? handleDrop as any : null}>
             {team !== null ? <Team name={team.name} colors={team.colors} logo={team.logo} /> : null}
         </div>
     );
