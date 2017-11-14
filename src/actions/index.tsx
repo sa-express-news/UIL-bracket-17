@@ -81,7 +81,7 @@ export const receiveBracketPostResponse = ({ error, data }: PostBracketResponse)
 export const updateNotification = (message = null as string | null): UpdateNotification => {
     return {
         type: constants.UPDATE_NOTIFICATION,
-        notification: message
+        notification: message,
     }
 }
 
@@ -123,15 +123,13 @@ export const postBracket = (data: PostBracketRequest) => {
 
 
         } catch (err) {
-            dispatch(updateNotification('Error sending your bracket'));
+            dispatch(updateNotification('Error sending your bracket - try refreshing the page and sending it again.'));
         }
     }
 }
 
 export const fetchBracket = (id: number) => {
     return async (dispatch: Dispatch<any>) => {
-        dispatch(updateNotification('Fetching bracket'));
-
         try {
             const serverResponseRaw = await fetch(`https://expressnewsdata.com/brackets/football-playoffs-2017/bracket/${id}`, {
                 headers: new Headers({ 'content-type': 'application/json' }),
@@ -140,14 +138,12 @@ export const fetchBracket = (id: number) => {
             const serverResponse: fetchBracketReponse = await serverResponseRaw.json();
 
             if (serverResponse.error !== null) {
-                dispatch(updateNotification('Error fetching your bracket'));
+                dispatch(updateNotification('Error sending your bracket - try refreshing the page and sending it again.'));
             } else if (serverResponse.data === null) {
-                dispatch(updateNotification('Sorry, no bracket found at that ID!'));
+                dispatch(updateNotification(`Sorry, no bracket found at that ID! Contact datateam@express-news.net if you need help tracking down your ID.`));
             } else if (serverResponse.data !== null) {
                 const { bracket } = serverResponse.data;
                 dispatch(updateBracket(bracket));
-                dispatch(updateNotification('Fetched your bracket from the server!'));
-                console.log(bracket.identifier);
                 switch (bracket.identifier) {
                     case 'div1_6a':
                         dispatch(updateBracketIndex(0));
@@ -166,7 +162,7 @@ export const fetchBracket = (id: number) => {
                 }
             }
         } catch (e) {
-            dispatch(updateNotification('Error fetching your bracket'));
+            dispatch(updateNotification('Error fetching your bracket - try refreshing this page.'));
         }
     }
 }
