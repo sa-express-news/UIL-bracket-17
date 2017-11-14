@@ -8,6 +8,14 @@
         flex-direction: row;
     }
 
+    .input-box *{
+        margin: .25em;
+    }
+
+    .instructions{
+        max-width: 768px;
+    }
+
     .round{
         display: flex;
         flex-direction:column;

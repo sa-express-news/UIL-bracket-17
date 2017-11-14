@@ -9,10 +9,10 @@ const App = ({ match, location, history }: RouteComponentProps<{ id: string }>) 
   return (
     <div>
       <div className="App">
-        <img className="logo" src="http://www.expressnews.com/img/modules/siteheader/logos/logo_home_large.png" alt="San Antonio Express-News" />
+        <a href="http://www.expressnews.com"><img className=" logo" src="http://www.expressnews.com/img/modules/siteheader/logos/logo_home_large.png" alt="San Antonio Express-News" /></a>
         <BracketContainer id={match.params.id} />
       </div>
-    </div>
+    </div >
   )
 }
 
