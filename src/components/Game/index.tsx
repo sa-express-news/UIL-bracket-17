@@ -18,7 +18,7 @@ const Game = ({ location, time, nodes, legalityFunctionForNodes, updateNodeFunct
         <div className="Game">
             {nodeComponents[0]}
             <div className="game-spacer">
-                <p>{location !== '' ? `(${location} ` : null}{time !== '' ? `- ${time})` : null}</p>
+                <p>{location !== ' ' ? `(${location} ` : null}{time !== ' ' ? `- ${time})` : null}</p>
             </div>
             {nodeComponents[1]}
         </div>
