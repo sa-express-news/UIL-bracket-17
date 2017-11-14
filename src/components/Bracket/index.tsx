@@ -131,7 +131,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         let selectComponent = null;
 
         if (!this.props.bracketID) {
-            selectComponent = <Select options={divisionOptions} dispatch={this.props.dispatch} />;
+            selectComponent = <Select options={divisionOptions} dispatch={this.props.dispatch} onChange={() => this.setState({ gameIndex: 0 })} />;
         }
 
         let emailInput = null;

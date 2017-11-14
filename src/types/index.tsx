@@ -10,6 +10,7 @@ export interface Select {
         text: string;
     }[];
     dispatch?: Function;
+    onChange?: Function;
 }
 
 export interface Notification {
