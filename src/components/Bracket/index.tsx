@@ -39,7 +39,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
     postBracketToServer = (): Function | void => {
         if (!this.isEmail(this.state.userEmail)) {
-            this.props.dispatch(updateNotification('Please enter a valid email address'));
+            this.props.dispatch(updateNotification('Please enter a valid email address.'));
         } else {
             const userEmail = this.state.userEmail;
             const bracket: BracketProps = {

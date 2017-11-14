@@ -1,11 +1,9 @@
 .Notification{
-    /* background: #1E6DF9; */
     width: 100%;
-    transition: transform .15s linear;
-    z-index: 5;
 }
 
 .Notification p{
     display: inline-block;
     margin-right: 1vw;
+    margin-top: 0;
 }
