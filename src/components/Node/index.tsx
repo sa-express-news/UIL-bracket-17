@@ -7,11 +7,10 @@ import Team from '../Team';
 
 import './Node.css';
 
-const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFunction, updateGameIndexFunction }: NodeProps) => {
+const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFunction, updateGameIndexFunction, touchEnabled }: NodeProps) => {
 
     const handleClick = (event: any): void => {
         event.preventDefault();
-        if (window.innerWidth > 767) return;
         const updateAction = updateNode(id, team);
         if (updateNodeFunction) { updateNodeFunction(updateAction); }
         updateGameIndexFunction();
@@ -32,7 +31,7 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
     }
 
     return (
-        <div className="Node" onClick={handleClick} onDragOver={handleDragOver as any} onDrop={handleDrop as any}>
+        <div className="Node" onClick={touchEnabled ? handleClick : null} onDragOver={handleDragOver as any} onDrop={handleDrop as any}>
             {team !== null ? <Team name={team.name} colors={team.colors} logo={team.logo} /> : null}
         </div>
     );

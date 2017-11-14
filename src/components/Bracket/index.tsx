@@ -7,7 +7,7 @@ import Button from '../Button';
 import Select from '../Select';
 import SwipeContainer from '../SwipeContainer';
 
-import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, updateNotification } from '../../actions'
+import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, updateNotification, toggleTouch } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
@@ -85,6 +85,9 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         if (this.props.bracketID) {
             this.props.dispatch(fetchBracket(this.props.bracketID))
         }
+        if ('ontouchstart' in document.documentElement) {
+            this.props.dispatch(toggleTouch());
+        }
     }
 
     render() {
@@ -92,12 +95,12 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             return <Game location={game.location} time={game.time} nodes={game.nodes}
                 legalityFunctionForNodes={this.isNodeUpdateLegal}
                 updateNodeFunction={this.dispatchNodeUpdate}
-                updateGameIndexFunction={this.incrementGameIndex} key={index} />
+                updateGameIndexFunction={this.incrementGameIndex} touchEnabled={this.props.touchEnabled} key={index} />
         });
 
         const championNode = <Node id={this.props.champion.id} team={this.props.champion.team}
             parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal}
-            updateNodeFunction={this.dispatchNodeUpdate} updateGameIndexFunction={(): null => null} />;
+            updateNodeFunction={this.dispatchNodeUpdate} updateGameIndexFunction={(): null => null} touchEnabled={this.props.touchEnabled} />;
 
         const divisionOptions = [
             {

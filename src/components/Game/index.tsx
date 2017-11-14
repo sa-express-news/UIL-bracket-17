@@ -5,12 +5,13 @@ import Node from '../Node';
 
 import './Game.css';
 
-const Game = ({ location, time, nodes, legalityFunctionForNodes, updateNodeFunction, updateGameIndexFunction }: GameProps) => {
+const Game = ({ location, time, nodes, legalityFunctionForNodes, updateNodeFunction, updateGameIndexFunction, touchEnabled }: GameProps) => {
     const nodeComponents = nodes.map((node, index) => {
         return <Node id={node.id} team={node.team} childID={node.childID}
             parentIDs={node.parentIDs} legalityFunction={legalityFunctionForNodes}
             updateNodeFunction={updateNodeFunction}
             updateGameIndexFunction={updateGameIndexFunction}
+            touchEnabled={touchEnabled}
             key={index} />
     })
     return (

@@ -4,7 +4,7 @@ import { Team as TeamProps } from '../../types';
 import './Team.css';
 
 const Team = (teamProps: TeamProps) => {
-    const { name, colors, logo } = teamProps;
+    const { name, colors, logo, touchEnabled } = teamProps;
 
     const handleDragStart = (event: DragEvent): void => {
         event.dataTransfer.setData('text/plain', JSON.stringify(teamProps));
@@ -12,7 +12,7 @@ const Team = (teamProps: TeamProps) => {
     }
 
     return (
-        <div className="Team" draggable={window.innerWidth > 767} onDragStart={handleDragStart as any}>
+        <div className="Team" draggable={!touchEnabled} onDragStart={!touchEnabled ? handleDragStart as any : null}>
             <p>{name}</p>
         </div>
     )

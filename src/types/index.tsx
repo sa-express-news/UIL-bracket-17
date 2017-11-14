@@ -28,6 +28,7 @@ export interface Team {
     name: string;
     logo?: string;
     colors?: [string, string];
+    touchEnabled?: boolean;
 }
 
 export interface Node {
@@ -38,6 +39,7 @@ export interface Node {
     legalityFunction?: Function;
     updateNodeFunction?: Function;
     updateGameIndexFunction?: Function;
+    touchEnabled?: boolean;
 }
 
 export interface Game {
@@ -47,6 +49,7 @@ export interface Game {
     legalityFunctionForNodes?: Function;
     updateNodeFunction?: Function;
     updateGameIndexFunction?: Function;
+    touchEnabled?: boolean;
 }
 
 export interface Bracket {
@@ -56,6 +59,7 @@ export interface Bracket {
     identifier?: string;
     dispatch?: Function;
     bracketID?: number;
+    touchEnabled?: boolean;
 }
 
 export interface BracketContainer {
