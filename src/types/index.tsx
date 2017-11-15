@@ -99,3 +99,8 @@ export interface fetchBracketReponse {
         bracket: Bracket
     } | null;
 }
+
+export interface fetchCanonicalBracketsResponse {
+    error: string | null;
+    data: Bracket[];
+}

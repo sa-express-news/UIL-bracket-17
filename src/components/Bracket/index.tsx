@@ -8,7 +8,7 @@ import Select from '../Select';
 import SwipeContainer from '../SwipeContainer';
 import NotificationContainer from '../NotificationContainer';
 
-import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, updateNotification, toggleTouch } from '../../actions'
+import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, updateNotification, toggleTouch, fetchCanonicalBrackets } from '../../actions'
 
 import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
 
@@ -86,6 +86,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
     componentDidMount(): void {
         if (this.props.bracketID) {
             this.props.dispatch(fetchBracket(this.props.bracketID))
+            this.props.dispatch(fetchCanonicalBrackets());
         }
         if ('ontouchstart' in document.documentElement) {
             this.props.dispatch(toggleTouch());

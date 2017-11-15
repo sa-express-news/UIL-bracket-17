@@ -2,7 +2,7 @@ import { update, set, cloneDeep } from 'lodash';
 
 import { StoreState, Bracket, Game } from '../types';
 import * as constants from '../constants';
-import { Action, UpdateBracketIndex, UpdateBracketID, UpdateNode, UpdateNotification, UpdateBracket, ToggleTouch } from '../actions';
+import { Action, UpdateBracketIndex, UpdateBracketID, UpdateNode, UpdateNotification, UpdateBracket, ToggleTouch, UpdateCanonicalBrackets } from '../actions';
 
 import startingBrackets from './startingBrackets';
 
@@ -68,6 +68,10 @@ export const touchToggle = (state: boolean, action: ToggleTouch): boolean => {
     return !state;
 }
 
+export const updateCanonicalBrackets = (state: Bracket[], action: UpdateCanonicalBrackets): Bracket[] => {
+    return state;
+}
+
 export const bracketApp = (state: StoreState = initialState, action: Action): StoreState => {
     switch (action.type) {
         case constants.UPDATE_BRACKET_INDEX:
@@ -96,6 +100,10 @@ export const bracketApp = (state: StoreState = initialState, action: Action): St
         case constants.TOGGLE_TOUCH:
             return Object.assign({}, state, {
                 touchEnabled: touchToggle(state.touchEnabled, action as ToggleTouch)
+            });
+        case constants.UPDATE_CANONICAL_BRACKETS:
+            return Object.assign({}, state, {
+                canonicalBrackets: updateCanonicalBrackets(state.canonicalBrackets, action as UpdateCanonicalBrackets)
             });
         default:
             return state;

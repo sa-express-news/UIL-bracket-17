@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 import { Dispatch } from 'react-redux';
 
-import { Bracket, Team, PostBracketResponse, PostBracketRequest, fetchBracketReponse } from '../types';
+import { Bracket, Team, PostBracketResponse, PostBracketRequest, fetchBracketReponse, fetchCanonicalBracketsResponse } from '../types';
 
 import history from '../routerHistory';
 
@@ -46,6 +46,11 @@ export interface UpdateBracket {
 
 export interface ToggleTouch {
     type: constants.TOGGLE_TOUCH;
+}
+
+export interface UpdateCanonicalBrackets {
+    type: constants.UPDATE_CANONICAL_BRACKETS;
+    brackets: Bracket[];
 }
 
 export const updateBracketIndex = (index: number): UpdateBracketIndex => {
@@ -95,6 +100,13 @@ export const updateBracket = (bracket: Bracket): UpdateBracket => {
 export const toggleTouch = (): ToggleTouch => {
     return {
         type: constants.TOGGLE_TOUCH
+    };
+}
+
+export const updateCanonicalBrackets = (brackets: Bracket[]): UpdateCanonicalBrackets => {
+    return {
+        type: constants.UPDATE_CANONICAL_BRACKETS,
+        brackets: brackets
     };
 }
 
@@ -163,6 +175,27 @@ export const fetchBracket = (id: number) => {
             }
         } catch (e) {
             dispatch(updateNotification('Error fetching your bracket - try refreshing this page.'));
+        }
+    }
+}
+
+export const fetchCanonicalBrackets = () => {
+    return async (dispatch: Dispatch<any>) => {
+        try {
+            const serverResponseRaw = await fetch('https://expressnewsdata.com/brackets/football-playoffs-2017/canonical', {
+                headers: new Headers({ 'content-type': 'application/json' })
+            });
+
+            const serverResponse: fetchCanonicalBracketsResponse = await serverResponseRaw.json();
+
+            if (serverResponse.error !== null) {
+                dispatch(updateNotification('Error fetching the most recent bracket data - try refreshing the page.'));
+            } else if (serverResponse.error === null && serverResponse.data !== null) {
+                dispatch(updateCanonicalBrackets(serverResponse.data));
+            }
+
+        } catch (e) {
+            dispatch(updateNotification('Error fetching the most recent bracket data - try refreshing the page.'));
         }
     }
 }
