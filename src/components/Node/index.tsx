@@ -7,7 +7,7 @@ import Team from '../Team';
 
 import './Node.css';
 
-const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFunction, updateGameIndexFunction, touchEnabled }: NodeProps) => {
+const Node = ({ id, team, childID, parentIDs, legalityFunction, canonicalCheckFunction, updateNodeFunction, updateGameIndexFunction, touchEnabled }: NodeProps) => {
 
     const handleClick = (event: any): void => {
         event.preventDefault();
@@ -34,8 +34,16 @@ const Node = ({ id, team, childID, parentIDs, legalityFunction, updateNodeFuncti
         }
     }
 
+    let style = null;
+
+    if (canonicalCheckFunction !== null && !canonicalCheckFunction(team, id)) {
+        style = {
+            border: '4px solid #BB1507'
+        };
+    }
+
     return (
-        <div className="Node" onClick={touchEnabled ? handleClick : null} onDragOver={handleDragOver as any} onDrop={!touchEnabled ? handleDrop as any : null}>
+        <div className="Node" style={style} onClick={touchEnabled ? handleClick : null} onDragOver={handleDragOver as any} onDrop={!touchEnabled ? handleDrop as any : null}>
             {team !== null ? <Team name={team.name} colors={team.colors} logo={team.logo} /> : null}
         </div>
     );

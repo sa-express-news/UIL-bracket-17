@@ -38,6 +38,7 @@ export interface Node {
     childID?: number;
     parentIDs?: [number, number];
     legalityFunction?: Function;
+    canonicalCheckFunction?: Function;
     updateNodeFunction?: Function;
     updateGameIndexFunction?: Function;
     touchEnabled?: boolean;
@@ -48,6 +49,7 @@ export interface Game {
     time: string;
     nodes: [Node, Node];
     legalityFunctionForNodes?: Function;
+    canonicalCheckFunction?: Function;
     updateNodeFunction?: Function;
     updateGameIndexFunction?: Function;
     touchEnabled?: boolean;
@@ -58,6 +60,7 @@ export interface Bracket {
     games: Game[];
     champion: Node;
     identifier?: string;
+    canonicalVersion?: Bracket;
     dispatch?: Function;
     bracketID?: number;
     touchEnabled?: boolean;

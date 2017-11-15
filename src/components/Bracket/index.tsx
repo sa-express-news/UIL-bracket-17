@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { isEqual } from 'lodash';
+
 import { Bracket as BracketProps, Team, PostBracketRequest } from '../../types';
 
 import Game from '../Game';
@@ -10,7 +12,7 @@ import NotificationContainer from '../NotificationContainer';
 
 import { UpdateNode, updateNode, updateBracketID, postBracket, fetchBracket, updateNotification, toggleTouch, fetchCanonicalBrackets } from '../../actions'
 
-import { isTeamUpdateLegal, isBracketComplete } from '../../data-structures/bracket';
+import { isTeamUpdateLegal, isBracketComplete, getNodeAt } from '../../data-structures/bracket';
 
 import './Bracket.css';
 import instructions, { touchNote, dragNote, mobileNote } from './instructions';
@@ -31,6 +33,16 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
 
     isNodeUpdateLegal = (id: number, team: Team): boolean => {
         return isTeamUpdateLegal(this.props, id, team);
+    }
+
+    doesTeamMatchCanonical = (team: Team, id: number): boolean => {
+        if (!getNodeAt(this.props.canonicalVersion, id)) return false;
+
+        if (getNodeAt(this.props.canonicalVersion, id).team === null) return true;
+
+        const canonicalTeam: Team = getNodeAt(this.props.canonicalVersion, id).team;
+
+        return isEqual(team, canonicalTeam);
     }
 
     dispatchNodeUpdate = (action: UpdateNode): Function => {
@@ -97,12 +109,14 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
         const gameComponents = this.props.games.map((game, index) => {
             return <Game location={game.location} time={game.time} nodes={game.nodes}
                 legalityFunctionForNodes={this.isNodeUpdateLegal}
+                canonicalCheckFunction={this.props.bracketID ? this.doesTeamMatchCanonical : null}
                 updateNodeFunction={this.dispatchNodeUpdate}
                 updateGameIndexFunction={this.incrementGameIndex} touchEnabled={this.props.touchEnabled} key={index} />
         });
 
         const championNode = <Node id={this.props.champion.id} team={this.props.champion.team}
             parentIDs={this.props.champion.parentIDs} legalityFunction={this.isNodeUpdateLegal}
+            canonicalCheckFunction={this.props.bracketID ? this.doesTeamMatchCanonical : null}
             updateNodeFunction={this.dispatchNodeUpdate} updateGameIndexFunction={(): null => null} touchEnabled={this.props.touchEnabled} />;
 
         const instructionParagraphs = instructions.map((paragraph, index) => {
