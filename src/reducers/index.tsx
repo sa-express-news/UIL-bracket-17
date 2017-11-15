@@ -69,7 +69,7 @@ export const touchToggle = (state: boolean, action: ToggleTouch): boolean => {
 }
 
 export const updateCanonicalBrackets = (state: Bracket[], action: UpdateCanonicalBrackets): Bracket[] => {
-    return state;
+    return action.brackets;
 }
 
 export const bracketApp = (state: StoreState = initialState, action: Action): StoreState => {
