@@ -158,7 +158,7 @@ export default class Bracket extends React.Component<BracketProps, BracketState>
             emailInput = <input type="text" value={this.state.userEmail} placeholder={'Your email'} onChange={this.handleEmailInputChange}></input>
         }
 
-        let saveButton = <Button text='Save' clickHandler={this.postBracketToServer} disabled={isBracketComplete(this.props) && !this.props.bracketID || new Date() > new Date(Date.UTC(2017, 10, 17, 1, 0, 0, 0)) ? false : true} />
+        let saveButton = <Button text='Save' clickHandler={this.postBracketToServer} disabled={true} />
 
         let visibleBracket = null;
 
